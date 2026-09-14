@@ -1,0 +1,51 @@
+{
+  "camera": {
+    "position": [
+      7.2,
+      3.45,
+      6.8
+    ],
+    "target": [
+      0,
+      1.94,
+      0
+    ],
+    "verticalFov": 30
+  },
+  "heroSamples": 256,
+  "detailSamples": 384,
+  "assets": [
+    {
+      "name": "sona-pearl-path.png",
+      "width": 1100,
+      "height": 1500,
+      "bytes": 1524294,
+      "sha256": "0348b02492be27b34c05bfb0dff3d92121f2e81616456d490dc34b2c6f4d04b1",
+      "exactBlackPixels": 0
+    },
+    {
+      "name": "sona-graphite-path.png",
+      "width": 1100,
+      "height": 1500,
+      "bytes": 1326843,
+      "sha256": "560a18403f51b832ce3242d1d6ce743ce518680438a5ced9d1f7541b1dfc662c",
+      "exactBlackPixels": 734
+    },
+    {
+      "name": "sona-fig-path.png",
+      "width": 1100,
+      "height": 1500,
+      "bytes": 1362310,
+      "sha256": "dd808545601e551515e1bcdff8c4c9be79976f4d692c0e5e95dad76ddc0967c9",
+      "exactBlackPixels": 0
+    },
+    {
+      "name": "sona-pearl-detail-path.png",
+      "width": 1200,
+      "height": 1200,
+      "bytes": 1354878,
+      "sha256": "20ac16995b7db985aed8ffcee615b5a62c5c8bed953dc4436dba0c5a9f05c464",
+      "exactBlackPixels": 44
+    }
+  ]
+}

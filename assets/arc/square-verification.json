@@ -1,0 +1,41 @@
+{
+  "camera": {
+    "position": [
+      7.2,
+      3.45,
+      6.8
+    ],
+    "target": [
+      0,
+      1.94,
+      0
+    ],
+    "verticalFov": 30,
+    "aspect": 1
+  },
+  "samples": 256,
+  "assets": [
+    {
+      "name": "sona-pearl-square.png",
+      "width": 1100,
+      "height": 1100,
+      "bytes": 1097675,
+      "sha256": "11ba4cee3cc478035c44282b39399661d1a0e52a2063b40748569d9aa4e674d7"
+    },
+    {
+      "name": "sona-graphite-square.png",
+      "width": 1100,
+      "height": 1100,
+      "bytes": 914875,
+      "sha256": "674f78d314bca33169555243c93ea35ceed4cd7eae6dcc477b4a41c070e93ced"
+    },
+    {
+      "name": "sona-fig-square.png",
+      "width": 1100,
+      "height": 1100,
+      "bytes": 1003774,
+      "sha256": "3fab5f997a6f09d5b501d332f3a0d680d3401b229e3162b8aa1d26dbd679d662"
+    }
+  ],
+  "existingAssetsUnchanged": true
+}

@@ -1,0 +1,14 @@
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import { BrowserRouter } from 'react-router';
+import { App } from './App';
+import { CartProvider } from './cart/CartProvider';
+import './styles.css';
+
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <BrowserRouter useTransitions={false}>
+      <CartProvider><App /></CartProvider>
+    </BrowserRouter>
+  </StrictMode>,
+);
