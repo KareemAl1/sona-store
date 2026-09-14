@@ -123,7 +123,7 @@ h1,h2,h3{font-family:Instrument Serif,Georgia,serif;font-weight:400;letter-spaci
 @media(min-width:1500px){.hero{min-height:760px}.hero-copy{padding-top:66px}.material-story{padding-top:72px;padding-bottom:68px}}
 @media(max-width:1100px) and (min-width:701px){.site-header__inner{padding-inline:34px}.hero-copy{padding:46px 34px 34px}.hero{min-height:610px}.hero h1{font-size:clamp(4.2rem,8.7vw,6.2rem)}.hero--product h1{font-size:5.6rem}.hero-footer{font-size:.75rem}.finish-options{gap:3px}.finish-option{font-size:.8125rem;padding-right:6px;gap:7px}.material-story{padding:50px 34px;gap:34px}.material-story h2{font-size:3rem}.site-footer{padding-inline:34px}}
 @media(max-width:700px){
- :root{--header-height:80px}
+ :root{--header-height:80px;scroll-padding-top:90px}
  .site-header{height:80px}
  .site-header__inner{padding:17px 22px}
  .wordmark{font-size:2.65rem}
@@ -135,11 +135,11 @@ h1,h2,h3{font-family:Instrument Serif,Georgia,serif;font-weight:400;letter-spaci
  .hero-description{margin-bottom:25px;line-height:1.7}
  .hero-footer{display:none}
  .concept-price{font-size:.8125rem;margin-top:12px}
- .product-gallery{grid-column:1;grid-row:2;min-height:0;height:370px}
+ .product-gallery{grid-column:1;grid-row:2;min-height:0;height:max(370px,95vw)}
  .finish-image img{object-fit:cover;object-position:50% 41%}
  .product-gallery figcaption{left:22px;right:22px;bottom:18px}
  .finish-image{transition-duration:140ms}
- .hero--product .product-gallery{grid-row:1;height:320px}
+ .hero--product .product-gallery{grid-row:1;height:max(320px,82vw)}
  .hero--product .hero-copy{grid-row:2;padding:25px 22px 20px}
  .hero--product h1{font-size:4.8rem;margin:0}
  .product-title{margin:17px 0 4px}

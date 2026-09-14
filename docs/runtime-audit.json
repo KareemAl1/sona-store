@@ -1,0 +1,25 @@
+{
+  "date": "2026-09-14T19:41:19.344Z",
+  "node": "v22.12.0",
+  "browser": "153.0.4234.32",
+  "state": {
+    "webMcpAvailable": false,
+    "fontsLoaded": "loaded",
+    "activeElement": "Close bag",
+    "dialogModal": true,
+    "overflow": "hidden",
+    "storage": {
+      "version": 1,
+      "lines": [
+        {
+          "productId": "arc",
+          "finish": "fig",
+          "quantity": 1
+        }
+      ]
+    }
+  },
+  "pageErrors": [],
+  "failedRequests": [],
+  "externalRequests": []
+}

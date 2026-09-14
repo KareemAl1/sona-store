@@ -1,23 +1,98 @@
 # Sona Arc original product assets
 
-The product is an original deterministic Three.js mesh assembly. No generated product photographs, stock imagery, downloaded meshes, or externally sourced textures are used.
+Sona Arc is an original deterministic Three.js mesh assembly. `model.js` authors the oval shells, woven cushions, broad headband, flattened yokes, pivots, controls, and studio. `render.js` supplies the locked path-tracing setup and deterministic denoising. There are no downloaded models, stock photographs, external textures, or AI retouches.
 
-## Source
+Only finish material colors vary among Pearl, Graphite, and Fig. Square renders change camera aspect to 1; camera position, target, vertical field of view, geometry, and lighting stay fixed. The detail view uses the existing closer camera. The procedural weave seed is `73241`.
 
-- `model.js` authors the asymmetric oval shell cross-sections, cushioned oval openings, original woven textile texture, rounded broad headband, flattened yoke arms, pivots, control button, and microphone slot. It also defines the locked studio and camera.
-- `render.js` uses `three-gpu-pathtracer` to path trace the same assembly for every finish.
-- `index.html`, `serve.cjs`, and `capture.cjs` provide the reproducible rendering harness.
-- `sona-arc-original.glb` is the native mesh assembly with the Pearl finish and the original woven normal map embedded.
-- `sona-original-weave-height.png` and `sona-original-weave-normal.png` are the original procedural texture assets. `export-source.cjs` regenerates them and verifies matching mesh bounds and triangle counts for every finish.
+## Setup
 
-Only material colors vary among Pearl, Graphite, and Fig. Geometry, camera, lights, environment, and crop are identical. The material detail uses the same scene with a closer camera.
+Run all commands below **from the Sona project root**, where `package.json` lives. Install the locked project dependencies once:
 
-## Reproduce
+```sh
+npm ci
+```
 
-Dependencies: Three.js 0.186.0, three-gpu-pathtracer 0.0.24 (with peer dependencies), and Playwright. The supplied local paths in `serve.cjs` and `capture.cjs` point to the development environment used to create the assets; change those paths when moving the source.
+The scripts resolve `playwright`, `sharp`, Three.js, and the path tracer from project `node_modules`. Browser selection is: `SONA_BROWSER_PATH` when set, an installed Microsoft Edge in a standard location, then Playwright's Chromium. If neither Edge nor a Playwright browser is installed, install Chromium:
 
-Run `node serve.cjs`, then `node capture.cjs pearl path 1100 1500 256`. Repeat for `graphite` and `fig`. The detail asset uses `node capture.cjs pearl path 1200 1200 384 detail`. The raster mode is intended for geometry previews only. Final renders use the renderer's deterministic, edge-preserving DenoiseMaterial pass (no AI retouching).
+```sh
+npx playwright install chromium
+```
 
-Responsive square assets use `node capture.cjs pearl path 1100 1100 256` (repeat for the other finishes). These write separate `sona-{finish}-square.png` files and skip GLB export. Only camera aspect changes; position, target, vertical field of view, geometry, materials, and lighting stay fixed. Portrait and detail files are preserved.
+To select a browser explicitly, set `SONA_BROWSER_PATH` to its executable path in the shell running the capture/export command. For example, in PowerShell:
 
-Coordinates and light values are declared directly in the source. The procedural weave uses a fixed seed (`73241`), and all finish renderings use stable path-tracing noise.
+```powershell
+$env:SONA_BROWSER_PATH = 'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe'
+```
+
+On macOS or Linux, use `export SONA_BROWSER_PATH='/absolute/path/to/browser'`. Direct3D flags apply only on Windows. GPU/browser differences can change render pixels slightly; the authored geometry and fixed camera settings remain the same.
+
+## Start the studio
+
+Keep this process running in one terminal while rendering or exporting source:
+
+```sh
+node assets/arc/serve.cjs
+```
+
+The studio opens at `http://127.0.0.1:4179`. It binds to loopback and serves only `assets/arc` and project `node_modules`, with both lexical and resolved-path containment checks. Stop it with Ctrl+C when finished.
+
+## Render the square storefront images and detail
+
+In a second terminal, from the project root:
+
+```sh
+node assets/arc/capture.cjs pearl path 1100 1100 256
+node assets/arc/capture.cjs graphite path 1100 1100 256
+node assets/arc/capture.cjs fig path 1100 1100 256
+node assets/arc/capture.cjs pearl path 1200 1200 384 detail
+```
+
+These write `sona-pearl-square.png`, `sona-graphite-square.png`, `sona-fig-square.png`, and `sona-pearl-detail-path.png` beside the scripts. Square captures preserve the portrait PNGs and skip GLB export. The studio may need a minute to compile shaders before samples accumulate.
+
+Keep **all seven original PNGs** in `assets/arc`: the three square images, three portrait images, and one detail image. To deliberately regenerate the portrait set, use:
+
+```sh
+node assets/arc/capture.cjs pearl path 1100 1500 256
+node assets/arc/capture.cjs graphite path 1100 1500 256
+node assets/arc/capture.cjs fig path 1100 1500 256
+```
+
+## Export the editable source and textures
+
+With the studio still running:
+
+```sh
+node assets/arc/export-source.cjs
+```
+
+This exports `sona-arc-original.glb` in Pearl, both original woven texture PNGs, and `geometry-verification.json`. It checks that all finishes have matching mesh counts, triangle counts, and bounds before writing. The original assembly contains 30 meshes and 101,760 triangles.
+
+## Export the website images
+
+The studio is not needed for this step:
+
+```sh
+node assets/arc/export-web.cjs
+```
+
+This reads the retained original PNGs and writes to `public/images`:
+
+| Inputs | Output names | Size | WebP quality |
+| --- | --- | --- | --- |
+| Three square PNGs | `arc-{finish}-1100.webp` | 1100 × 1100 | 88 |
+| Three square PNGs | `arc-{finish}-550.webp` | 550 × 550 | 85 |
+| Original detail PNG | `arc-detail.webp` | 1100 × 700, centered cover crop | 90 |
+
+## Verify
+
+These commands inventory the retained originals, check square dimensions and matching original hashes, and verify every WebP against a fresh in-memory export of its original PNG with the exact settings above:
+
+```sh
+node assets/arc/verify-assets.cjs
+node assets/arc/verify-squares.cjs
+node assets/arc/export-web.cjs --check
+```
+
+`verify-assets.cjs` refreshes `asset-verification.json`; `verify-squares.cjs` writes `square-verification.json`. To confirm the original portrait/detail files have not changed against an **existing** manifest, run `verify-squares.cjs` before refreshing it. Exact-black pixel counts are diagnostic; deep contact shadows can contain black pixels. Inspect the final images for rendering artifacts as well.
+
+These tools generate local assets only; none of the commands publishes the website.
