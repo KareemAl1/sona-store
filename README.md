@@ -30,8 +30,11 @@ The browser tests use installed Microsoft Edge on Windows when available, otherw
 - `assets/arc/`: original geometry, textures, GLB, render pipeline, and alignment evidence.
 - `tests/journey.spec.ts`: browser journey, history, keyboard, storage failure, accessibility, screenshots.
 - `tests/resilience.spec.ts`: rapid input, unavailable images, route focus, scroll restoration, narrow layouts, enlarged text.
+- `tests/motion.spec.ts`: delayed-image reveal, retained finish preview, interrupted motion, live reduced-motion changes, and deliberate backdrop dismissal.
 - `docs/engineering.md`: decisions and tradeoffs.
-- `docs/verification.md`: actual verification results and limitations.
+- `docs/refinement.md`: current visual refinement results, comparison captures, and limitations.
+- `docs/verification.md`: historical initial milestone verification.
+- `docs/refinement/compare.html`: desktop and phone before/after screenshots from actual browsers.
 - `docs/screenshots/`: browser captures from the implemented UI.
 
 The project is local only. No remote repository or hosting has been configured. Local commits use KareemAl1, verified before committing. Other projects are independent and are not imported or modified.

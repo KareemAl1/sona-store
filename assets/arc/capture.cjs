@@ -31,7 +31,7 @@ const { launchBrowser } = require('./browser.cjs');
       console.log(JSON.stringify(status));
       if (status?.stage !== 'complete') continue;
       const square = width === height && !detail;
-      const name = square ? `sona-${finish}-square.png` : `sona-${finish}${detail ? '-detail' : ''}-${mode}.png`;
+      const name = detail ? `sona-${finish}-macro${mode === 'raster' ? '-raster' : ''}.png` : square ? `sona-${finish}-square.png` : `sona-${finish}-${mode}.png`;
       const data = await page.evaluate(() => window.capture());
       fs.writeFileSync(path.join(__dirname, name), Buffer.from(data.split(',')[1], 'base64'));
       console.log(`SAVED ${name}`);

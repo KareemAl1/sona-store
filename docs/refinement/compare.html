@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Sona — visual refinement evidence</title>
+  <style>
+    :root { color: #2a2130; background: #f0f0ec; font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.6; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    a { color: inherit; text-underline-offset: 4px; }
+    a:focus-visible { outline: 3px solid #775388; outline-offset: 5px; }
+    .page { max-width: 1600px; margin: 0 auto; padding: 48px 40px 64px; }
+    .masthead { padding-bottom: 36px; border-bottom: 1px solid #c7c4c7; }
+    .eyebrow { margin: 0 0 14px; font-size: .8rem; letter-spacing: .13em; text-transform: uppercase; }
+    h1, h2, p { margin: 0; }
+    h1 { max-width: 940px; font-family: Georgia, serif; font-size: clamp(2.6rem, 5vw, 4.8rem); font-weight: 400; line-height: 1.08; letter-spacing: -.045em; }
+    .intro { max-width: 900px; margin-top: 22px; font-size: 1.125rem; }
+    .scale-note { max-width: 900px; margin-top: 12px; color: #59515e; font-size: .9375rem; }
+    nav { display: flex; flex-wrap: wrap; gap: 12px 28px; margin-top: 28px; font-size: .9375rem; }
+    .measurements { padding: 32px 0 34px; border-bottom: 1px solid #c7c4c7; }
+    .measurements h2 { font-size: 1.125rem; font-weight: 600; margin-bottom: 12px; }
+    .table-wrap { overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; max-width: 1060px; text-align: left; font-size: .9375rem; }
+    th, td { padding: 10px 20px 10px 0; border-bottom: 1px solid #d9d6d9; vertical-align: top; }
+    th { font-weight: 600; }
+    th:first-child { width: 30%; }
+    .comparison { padding: 40px 0 44px; border-bottom: 1px solid #c7c4c7; scroll-margin-top: 20px; }
+    .section-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px 30px; flex-wrap: wrap; margin-bottom: 22px; }
+    .section-head h2 { font-family: Georgia, serif; font-weight: 400; font-size: 2.05rem; letter-spacing: -.025em; line-height: 1.2; }
+    .section-head p { color: #59515e; font-size: .875rem; }
+    .pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px; align-items: start; }
+    figure { margin: 0; min-width: 0; }
+    figcaption { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px 14px; margin-bottom: 10px; font-size: .8125rem; letter-spacing: .06em; text-transform: uppercase; }
+    .after figcaption { color: #5a3d65; }
+    .capture { display: block; width: 100%; height: auto; outline: 1px solid #d4d0d5; background: #302437; }
+    .phone .pair { max-width: 812px; margin-inline: auto; gap: 32px; }
+    .phone .section-head { max-width: 812px; margin-inline: auto; }
+    .caption-note { margin-top: 17px; max-width: 1000px; font-size: .9375rem; color: #59515e; }
+    .phone .caption-note { max-width: 812px; margin-inline: auto; }
+    .full-links { display: flex; gap: 12px 26px; flex-wrap: wrap; margin-top: 17px; font-size: .9375rem; }
+    .phone .full-links { max-width: 812px; margin-inline: auto; }
+    footer { padding-top: 28px; font-size: .875rem; color: #59515e; }
+    @media (max-width: 800px) {
+      .page { padding: 30px 22px 44px; }
+      .pair { gap: 18px; }
+      .phone .pair { gap: 18px; }
+      .comparison { padding-block: 30px; }
+      .section-head h2 { font-size: 1.8rem; }
+    }
+    @media (max-width: 560px) {
+      .pair { grid-template-columns: 1fr; gap: 24px; }
+      .phone .pair { max-width: 390px; gap: 24px; }
+      figcaption { font-size: .75rem; }
+      th, td { padding-right: 16px; }
+      table { min-width: 470px; }
+    }
+    @media print {
+      .page { padding: 0; }
+      nav { display: none; }
+      .comparison { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="masthead">
+      <p class="eyebrow">Sona · Local milestone refinement</p>
+      <h1>The same journey.<br>A more considered finish.</h1>
+      <p class="intro">Before and after captures of the working homepage, Arc product page, and bag. The refinement keeps Sona’s plum-and-pearl palette and serif typography while improving reading, shopping controls, product materials, and the phone opening.</p>
+      <p class="scale-note">Captured in Chrome at 100% browser zoom: desktop 1440 × 1000 and phone 390 × 844, with viewport scale 1. Images below are proportionally scaled to fit this gallery and are never cropped. Open an image to inspect its original pixel dimensions. Phone captures use an emulated viewport.</p>
+      <nav aria-label="Comparison sections">
+        <a href="#desktop-home">Desktop home</a><a href="#desktop-product">Desktop product</a><a href="#desktop-cart">Desktop bag</a>
+        <a href="#phone-home">Phone home</a><a href="#phone-product">Phone product</a><a href="#phone-cart">Phone bag</a>
+      </nav>
+    </header>
+
+    <section class="measurements" aria-labelledby="measurements-heading">
+      <h2 id="measurements-heading">Measured in the browser</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">Element</th><th scope="col">Desktop · before → after</th><th scope="col">Phone · before → after</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Homepage body text</th><td>16 → 18 px</td><td>16 → 17 px</td></tr>
+            <tr><th scope="row">Navigation</th><td>14 → 16 px</td><td>14 → 16 px</td></tr>
+            <tr><th scope="row">Finish labels</th><td>14 → 16 px</td><td>13 → 16 px</td></tr>
+            <tr><th scope="row">Quantity button width</th><td>40 → 48 px</td><td>37 → 48 px</td></tr>
+            <tr><th scope="row">Bag panel width</th><td>460 → 560 px</td><td>Full viewport width</td></tr>
+            <tr><th scope="row">Homepage product top</th><td>—</td><td>490.64 → 399.66 px · about 91 px sooner</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="comparison" id="desktop-home" aria-labelledby="desktop-home-heading">
+      <div class="section-head"><h2 id="desktop-home-heading">01 / Desktop opening</h2><p>1440 × 1000 capture · 100% browser zoom</p></div>
+      <div class="pair">
+        <figure><figcaption><span>Before</span><span>Homepage</span></figcaption><a href="before-desktop-home.png"><img class="capture" src="before-desktop-home.png" width="1440" height="1000" alt="Before refinement: desktop Sona homepage"></a></figure>
+        <figure class="after"><figcaption><span>After</span><span>Homepage</span></figcaption><a href="after-desktop-home.png"><img class="capture" src="after-desktop-home.png" width="1440" height="1000" alt="After refinement: desktop Sona homepage"></a></figure>
+      </div>
+      <p class="caption-note">Readable navigation and body copy accompany the original composition. The refined product render adds visible fabric, padding, seam detail, and material contrast.</p>
+    </section>
+
+    <section class="comparison" id="desktop-product" aria-labelledby="desktop-product-heading">
+      <div class="section-head"><h2 id="desktop-product-heading">02 / Desktop Arc</h2><p>Fig selected · 1440 × 1000 capture</p></div>
+      <div class="pair">
+        <figure><figcaption><span>Before</span><span>Product page</span></figcaption><a href="before-desktop-product.png"><img class="capture" src="before-desktop-product.png" width="1440" height="1000" alt="Before refinement: desktop Arc product page in Fig"></a></figure>
+        <figure class="after"><figcaption><span>After</span><span>Product page</span></figcaption><a href="after-desktop-product.png"><img class="capture" src="after-desktop-product.png" width="1440" height="1000" alt="After refinement: desktop Arc product page in Fig"></a></figure>
+      </div>
+      <p class="caption-note">Larger finish labels and purchase controls give the selection area more breathing room. The full-page captures show the new purpose-made cushion macro in place of the repeated detail crop.</p>
+      <div class="full-links"><a href="before-desktop-product-full.png">Before · complete product page</a><a href="after-desktop-product-full.png">After · complete product page and macro</a></div>
+    </section>
+
+    <section class="comparison" id="desktop-cart" aria-labelledby="desktop-cart-heading">
+      <div class="section-head"><h2 id="desktop-cart-heading">03 / Desktop bag</h2><p>Fig × 2 + Pearl × 1 · illustrative subtotal $747</p></div>
+      <div class="pair">
+        <figure><figcaption><span>Before</span><span>460 px panel</span></figcaption><a href="before-desktop-cart.png"><img class="capture" src="before-desktop-cart.png" width="1440" height="1000" alt="Before refinement: desktop bag with two Fig and one Pearl Arc"></a></figure>
+        <figure class="after"><figcaption><span>After</span><span>560 px panel</span></figcaption><a href="after-desktop-cart.png"><img class="capture" src="after-desktop-cart.png" width="1440" height="1000" alt="After refinement: wider desktop bag with larger quantity controls"></a></figure>
+      </div>
+      <p class="caption-note">The wider panel makes room for product details, 48 px quantity controls, and a clearer subtotal without crowding removal actions.</p>
+    </section>
+
+    <section class="comparison phone" id="phone-home" aria-labelledby="phone-home-heading">
+      <div class="section-head"><h2 id="phone-home-heading">04 / Phone opening</h2><p>390 × 844 capture · 100% browser zoom</p></div>
+      <div class="pair">
+        <figure><figcaption><span>Before</span><span>Product top 490.64 px</span></figcaption><a href="before-phone-home.png"><img class="capture" src="before-phone-home.png" width="390" height="844" alt="Before refinement: phone Sona homepage with the product lower in the opening"></a></figure>
+        <figure class="after"><figcaption><span>After</span><span>Product top 399.66 px</span></figcaption><a href="after-phone-home.png"><img class="capture" src="after-phone-home.png" width="390" height="844" alt="After refinement: phone homepage showing the product about 91 pixels sooner"></a></figure>
+      </div>
+      <p class="caption-note">A more compact introduction keeps the expressive headline while bringing the product about 91 px closer to the top of the page.</p>
+    </section>
+
+    <section class="comparison phone" id="phone-product" aria-labelledby="phone-product-heading">
+      <div class="section-head"><h2 id="phone-product-heading">05 / Phone Arc</h2><p>Fig selected · 390 × 844 capture</p></div>
+      <div class="pair">
+        <figure><figcaption><span>Before</span><span>Product page</span></figcaption><a href="before-phone-product.png"><img class="capture" src="before-phone-product.png" width="390" height="844" alt="Before refinement: phone Arc product page in Fig"></a></figure>
+        <figure class="after"><figcaption><span>After</span><span>Product page</span></figcaption><a href="after-phone-product.png"><img class="capture" src="after-phone-product.png" width="390" height="844" alt="After refinement: phone Arc product page with refined render and readable shopping controls"></a></figure>
+      </div>
+      <p class="caption-note">The product and shopping bar stay prominent. Open the complete captures to compare finish selection, purchase controls, and the cushion macro farther down the page.</p>
+      <div class="full-links"><a href="before-phone-product-full.png">Before · complete product page</a><a href="after-phone-product-full.png">After · complete product page and macro</a></div>
+    </section>
+
+    <section class="comparison phone" id="phone-cart" aria-labelledby="phone-cart-heading">
+      <div class="section-head"><h2 id="phone-cart-heading">06 / Phone bag</h2><p>Fig × 2 + Pearl × 1 · illustrative subtotal $747</p></div>
+      <div class="pair">
+        <figure><figcaption><span>Before</span><span>37 px quantity buttons</span></figcaption><a href="before-phone-cart.png"><img class="capture" src="before-phone-cart.png" width="390" height="844" alt="Before refinement: phone bag and its smaller quantity controls"></a></figure>
+        <figure class="after"><figcaption><span>After</span><span>48 px quantity buttons</span></figcaption><a href="after-phone-cart.png"><img class="capture" src="after-phone-cart.png" width="390" height="844" alt="After refinement: phone bag with larger quantity buttons and readable item details"></a></figure>
+      </div>
+      <p class="caption-note">The full-width bag uses larger quantity buttons, clearer finish labels, and more space between item details and actions.</p>
+    </section>
+
+    <footer>Local visual evidence from the working Sona storefront. Screenshot links open the original captures. These are static records of the interface, not interactive storefront controls. Sona is a fictional portfolio concept and does not accept payments.</footer>
+  </main>
+</body>
+</html>

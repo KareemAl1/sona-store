@@ -1,0 +1,374 @@
+{
+  "schemaVersion": 1,
+  "sourceHashes": {
+    "model.js": "9356efe91a45bb5d43f76a61fd3db5f0a873301c0c276953ef226f01eba2b8ff",
+    "render.js": "cab0d3f00955097921d6ab479e3cc4957724b3f22b3d634c6af0b4cc83b74df0",
+    "capture.cjs": "9d6dd99fe87c03e99e39cb70158c99bd2d7e2932743b79780d990d34634a7f28",
+    "export-source.cjs": "307fd87bf8d8b1a4bbf603c1692cda35a63fac58915d21b2c5e657d2501c1868",
+    "export-web.cjs": "2530c4c1c8e702d6f65a6d47c6075b6fdcbca03b0c53714c6be2e3b1f49bcada",
+    "verify-refinement.cjs": "2a13d689e9d98460a63de49f79673082ff9cdaa94498ad84a2719cfab7575621",
+    "browser.cjs": "df5bb4e15c5af09b09c87a46b7de1764724f79dd77ae15eeaa0307a7143fe649",
+    "serve.cjs": "5271cc31f6d8deb9d3c41c753e052546b1d5a1adc20f36824c79d115a105c87f",
+    "index.html": "c06d9dbf91d178b0a9fa62220fe11058a92ee560782952ebfe2d99bc6714c5a8"
+  },
+  "toolVersions": {
+    "sharp": "0.35.4",
+    "vips": "8.18.6",
+    "threeRevision": "186"
+  },
+  "geometry": {
+    "pearl": {
+      "meshes": 34,
+      "triangles": 138376,
+      "geometrySha256": "07f67651782977314a7bc97d23685f8c02d164b0b49a568b39ec7d32020ed661",
+      "bounds": {
+        "min": [
+          -1.4251978638655958,
+          0.014580987837022219,
+          -0.7564733866151034
+        ],
+        "max": [
+          1.4251978638655955,
+          4.067500114440918,
+          0.7286089062690735
+        ]
+      },
+      "heroProjectionBounds1100": {
+        "min": [
+          298.97396624829094,
+          103.74853701925882
+        ],
+        "max": [
+          824.3893356493401,
+          960.8259356709796
+        ]
+      }
+    },
+    "graphite": {
+      "meshes": 34,
+      "triangles": 138376,
+      "geometrySha256": "07f67651782977314a7bc97d23685f8c02d164b0b49a568b39ec7d32020ed661",
+      "bounds": {
+        "min": [
+          -1.4251978638655958,
+          0.014580987837022219,
+          -0.7564733866151034
+        ],
+        "max": [
+          1.4251978638655955,
+          4.067500114440918,
+          0.7286089062690735
+        ]
+      },
+      "heroProjectionBounds1100": {
+        "min": [
+          298.97396624829094,
+          103.74853701925882
+        ],
+        "max": [
+          824.3893356493401,
+          960.8259356709796
+        ]
+      }
+    },
+    "fig": {
+      "meshes": 34,
+      "triangles": 138376,
+      "geometrySha256": "07f67651782977314a7bc97d23685f8c02d164b0b49a568b39ec7d32020ed661",
+      "bounds": {
+        "min": [
+          -1.4251978638655958,
+          0.014580987837022219,
+          -0.7564733866151034
+        ],
+        "max": [
+          1.4251978638655955,
+          4.067500114440918,
+          0.7286089062690735
+        ]
+      },
+      "heroProjectionBounds1100": {
+        "min": [
+          298.97396624829094,
+          103.74853701925882
+        ],
+        "max": [
+          824.3893356493401,
+          960.8259356709796
+        ]
+      }
+    }
+  },
+  "cameras": {
+    "hero": {
+      "position": [
+        7.2,
+        3.45,
+        6.8
+      ],
+      "quaternion": [
+        -0.06940719344627695,
+        0.3947064265065034,
+        0.029917727062864573,
+        0.9156934028263878
+      ],
+      "fov": 30,
+      "aspect": 1,
+      "near": 0.1,
+      "far": 100,
+      "projectionMatrix": [
+        3.7320508075688776,
+        0,
+        0,
+        0,
+        0,
+        3.7320508075688776,
+        0,
+        0,
+        0,
+        0,
+        -1.002002002002002,
+        -1,
+        0,
+        0,
+        -0.20020020020020018,
+        0
+      ],
+      "target": [
+        0,
+        1.94,
+        0
+      ]
+    },
+    "macro": {
+      "position": [
+        -3.4,
+        2.3,
+        3.8
+      ],
+      "quaternion": [
+        -0.0780414804681427,
+        -0.40693220955708936,
+        -0.03491962093749475,
+        0.9094483625939997
+      ],
+      "fov": 22,
+      "aspect": 1.4,
+      "near": 0.1,
+      "far": 100,
+      "projectionMatrix": [
+        3.6746814399787935,
+        0,
+        0,
+        0,
+        0,
+        5.144554015970311,
+        0,
+        0,
+        0,
+        0,
+        -1.002002002002002,
+        -1,
+        0,
+        0,
+        -0.20020020020020018,
+        0
+      ],
+      "target": [
+        0.74,
+        1.34,
+        0.1
+      ]
+    }
+  },
+  "alignment": {
+    "identicalGeometryAndTransformsAcrossFinishes": true,
+    "identicalHeroProjectionBoundsAcrossFinishes": true,
+    "originalOverallBoundsRetained": true,
+    "method": "SHA-256 of each mesh world transform, position/normal/UV arrays and indices in traversal order; all vertices projected with the locked hero camera."
+  },
+  "retainedAssets": [
+    {
+      "name": "sona-pearl-square.png",
+      "width": 1100,
+      "height": 1100,
+      "bytes": 1029515,
+      "sha256": "7a1929e2d2af4ac34d564bac2f6e817565a6e49b669df6c1a033e38aa286e4fe",
+      "transparentPixels": 0,
+      "transparentBounds": null
+    },
+    {
+      "name": "sona-graphite-square.png",
+      "width": 1100,
+      "height": 1100,
+      "bytes": 894651,
+      "sha256": "546a7febca5b429aa330310f8aeb92eee1dc2dd83ec8dc2f85545c1fedbc8fc5",
+      "transparentPixels": 0,
+      "transparentBounds": null
+    },
+    {
+      "name": "sona-fig-square.png",
+      "width": 1100,
+      "height": 1100,
+      "bytes": 954067,
+      "sha256": "f91922cd18da104f2a23b04f10838b2eec8776aab69bcbbcd1464fc10f6dde91",
+      "transparentPixels": 0,
+      "transparentBounds": null
+    },
+    {
+      "name": "sona-pearl-macro.png",
+      "width": 1400,
+      "height": 1000,
+      "bytes": 1707730,
+      "sha256": "be7a9388ab8961a6293a63cb542fc92bb1d02fd76861feaab78bb96d6d54ee2b",
+      "transparentPixels": 15,
+      "transparentBounds": {
+        "min": [
+          704,
+          771
+        ],
+        "max": [
+          708,
+          775
+        ]
+      }
+    },
+    {
+      "name": "sona-original-weave-height.png",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 1162535,
+      "sha256": "525af5467ba4b4f85f47fc6c5980d2f551ca551a3bd2001087d7e089cc46b4dc",
+      "transparentPixels": 0,
+      "transparentBounds": null
+    },
+    {
+      "name": "sona-original-weave-normal.png",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 2474276,
+      "sha256": "6fa7d1a4a23e7483db7a30844284c9b6d2aa984075e5927e660512e007b52a11",
+      "transparentPixels": 0,
+      "transparentBounds": null
+    },
+    {
+      "name": "sona-original-weave-albedo.png",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 1291129,
+      "sha256": "832ec1c89c61a90d9cc8ab006e36dd0345dbfc42d9ca10358eed839919a487f3",
+      "transparentPixels": 0,
+      "transparentBounds": null
+    },
+    {
+      "name": "sona-original-weave-roughness.png",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 119229,
+      "sha256": "529aa99aabd1cc3a4adf8e6017913bc30eaeb970450be84d28aba9dbacd2d858",
+      "transparentPixels": 0,
+      "transparentBounds": null
+    },
+    {
+      "name": "sona-arc-original.glb",
+      "bytes": 7115460,
+      "sha256": "5e65bf104a3cf613fc49510608a5446ff759d703e6e1abaae356de4181dc63d9",
+      "meshes": 34,
+      "triangles": 138376
+    }
+  ],
+  "webAssets": [
+    {
+      "name": "arc-pearl-1100.webp",
+      "source": "sona-pearl-square.png",
+      "width": 1100,
+      "height": 1100,
+      "quality": 92,
+      "resize": "proportional-width-no-crop",
+      "opaqueBackground": "#0d0a10",
+      "bytes": 44562,
+      "sha256": "aed727d1f227905c9ac3ebfb21e16430d4f3750dc3a8eec69497720b4c185d32"
+    },
+    {
+      "name": "arc-pearl-550.webp",
+      "source": "sona-pearl-square.png",
+      "width": 550,
+      "height": 550,
+      "quality": 90,
+      "resize": "proportional-width-no-crop",
+      "opaqueBackground": "#0d0a10",
+      "bytes": 12586,
+      "sha256": "63c87dabc91027d89922ff1b28bdaf149e1a9616aa4e201c35209df8ef9a042b"
+    },
+    {
+      "name": "arc-graphite-1100.webp",
+      "source": "sona-graphite-square.png",
+      "width": 1100,
+      "height": 1100,
+      "quality": 92,
+      "resize": "proportional-width-no-crop",
+      "opaqueBackground": "#0d0a10",
+      "bytes": 27754,
+      "sha256": "cf66605ade614280309ae7c601e53cc6774f40c7c4f412347db45b73b695760c"
+    },
+    {
+      "name": "arc-graphite-550.webp",
+      "source": "sona-graphite-square.png",
+      "width": 550,
+      "height": 550,
+      "quality": 90,
+      "resize": "proportional-width-no-crop",
+      "opaqueBackground": "#0d0a10",
+      "bytes": 9164,
+      "sha256": "a550f9663b47b0d3cde50c6f0f1c4c8be0f5e6621d2b1332b289b62ad5b21dd6"
+    },
+    {
+      "name": "arc-fig-1100.webp",
+      "source": "sona-fig-square.png",
+      "width": 1100,
+      "height": 1100,
+      "quality": 92,
+      "resize": "proportional-width-no-crop",
+      "opaqueBackground": "#0d0a10",
+      "bytes": 36824,
+      "sha256": "c90aad6c5d7df9226a9597c2b93142cb1aa7c74315f3166a5829e8cf0dc505a6"
+    },
+    {
+      "name": "arc-fig-550.webp",
+      "source": "sona-fig-square.png",
+      "width": 550,
+      "height": 550,
+      "quality": 90,
+      "resize": "proportional-width-no-crop",
+      "opaqueBackground": "#0d0a10",
+      "bytes": 11058,
+      "sha256": "d6fba0866cf9018d2519f56cb444846058f7d2ab92726d2399f006c09ca33db8"
+    },
+    {
+      "name": "arc-detail.webp",
+      "source": "sona-pearl-macro.png",
+      "width": 1100,
+      "height": 786,
+      "quality": 92,
+      "resize": "proportional-width-no-crop",
+      "opaqueBackground": "#0d0a10",
+      "bytes": 79174,
+      "sha256": "1f92f303364060ec7978f4a910c44ab7f2a8ed2e96577be1b0f2432dc64ec7d0"
+    }
+  ],
+  "renderRegeneration": {
+    "hero": {
+      "width": 1100,
+      "height": 1100,
+      "samples": 512
+    },
+    "macro": {
+      "width": 1400,
+      "height": 1000,
+      "samples": 768
+    },
+    "note": "These are regeneration settings. Original sample counts are not encoded in the PNG files; the retained PNG hashes identify the inspected final renders."
+  },
+  "originalAlphaDiagnostic": "Nonopaque original pixels and their bounds are recorded per asset. The WebP pipeline composites all inputs over #0d0a10 and verifies opaque output; original PNG bytes are preserved.",
+  "historicalAssets": "Existing portrait PNGs and sona-pearl-detail-path.png predate the refined geometry. They are retained as historical originals and are not inputs to the final website export."
+}

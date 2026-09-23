@@ -81,18 +81,24 @@ test('narrow, tablet, and enlarged text layouts keep shopping controls reachable
     expect(await page.evaluate(() => document.querySelector('dialog')!.scrollWidth <= innerWidth)).toBe(true);
     await page.getByRole('button', { name: 'Close bag' }).click();
   }
-  await page.setViewportSize({ width: 640, height: 900 });
-  await page.goto('/products/arc?finish=pearl');
+  for (const width of [390, 640]) {
+  await page.setViewportSize({ width, height: 900 });
+  await page.goto('/');
   await page.addStyleTag({ content: ':root { font-size: 200%; }' });
+  await page.evaluate(() => document.fonts.ready);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await page.getByRole('link', { name: 'Discover Arc' }).click();
   await page.evaluate(() => document.fonts.ready);
   await page.waitForFunction(() => Array.from(document.querySelectorAll<HTMLImageElement>('.product-gallery img')).every(image => image.complete && image.naturalWidth > 0));
   await page.waitForTimeout(550);
-  await page.screenshot({ path: 'docs/screenshots/text-200-percent.png', fullPage: true });
+  await page.screenshot({ path: `docs/screenshots/text-200-percent${width === 390 ? '-phone' : ''}.png`, fullPage: true });
   await page.getByRole('radio', { name: 'Fig', exact: true }).check();
   await page.locator('.purchase-block .button').click();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   await page.locator('.add-confirmation .text-button').click();
   await expect(page.getByRole('button', { name: 'Close bag' })).toBeInViewport();
+  expect(await page.evaluate(() => document.querySelector('dialog')!.scrollWidth <= innerWidth)).toBe(true);
   await page.keyboard.press('Escape');
   await expect(page.locator('.add-confirmation .text-button')).toBeFocused();
+  }
 });

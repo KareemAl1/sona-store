@@ -26,6 +26,7 @@ export function App() {
   const opener = useRef<HTMLElement | null>(null);
   const openerPath = useRef(location.pathname);
   const priorPath = useRef(location.pathname);
+  const backdropPressed = useRef(false);
   const [confirmation, setConfirmation] = useState<{ finish: Finish; full: boolean } | null>(null);
   const [detailsOpen, setDetailsOpen] = useState(false);
 
@@ -129,13 +130,19 @@ export function App() {
     else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
   }
 
+  function isBackdrop(event: React.PointerEvent<HTMLDialogElement> | React.MouseEvent<HTMLDialogElement>) {
+    if (event.target !== dialog.current || !dialog.current) return false;
+    const rect = dialog.current.getBoundingClientRect();
+    return event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom;
+  }
+
   const notice = confirmation && <div className="add-confirmation"><span>{confirmation.full ? 'Maximum quantity reached.' : `Arc in ${finishName(confirmation.finish)} added.`}</span><button className="text-button" onClick={openBag}>View bag</button></div>;
 
   return <>
     <a className="skip-link" href="#main">Skip to content</a>
     <header className="site-header"><div className="site-header__inner">
       <Link className="wordmark" to="/" aria-label="Sona home">sona</Link>
-      <nav aria-label="Main navigation"><span className="brand-note">Objects for listening.</span><button className="bag-toggle" onClick={openBag} aria-label={`Open bag, ${cart.count} ${cart.count === 1 ? 'item' : 'items'}`} aria-haspopup="dialog">Bag <span aria-hidden="true">({cart.count})</span></button></nav>
+      <nav aria-label="Main navigation"><Link className="shop-link" to="/products/arc?finish=pearl" aria-current={product ? 'page' : undefined}>Shop Arc</Link><button className="bag-toggle" onClick={openBag} aria-label={`Open bag, ${cart.count} ${cart.count === 1 ? 'item' : 'items'}`} aria-haspopup="dialog">Bag <span aria-hidden="true">({cart.count})</span></button></nav>
     </div></header>
 
     {product && <div className="mobile-purchase"><div><span>Arc / {finishName(finish)}</span><span>{money(arc.price)}</span></div><div className="mobile-purchase__actions">{confirmation && <button className="text-button" onClick={openBag}>View bag</button>}<button className="button button--compact" onClick={addToBag}>{confirmation ? 'Add another' : 'Add to bag'}</button></div></div>}
@@ -147,8 +154,8 @@ export function App() {
             {home ? <>
               <p className="eyebrow">Introducing Arc</p>
               <h1 ref={heading} tabIndex={-1}>Make room<br />for <em>listening.</em></h1>
-              <p className="hero-description">Over-ear headphones.<br />Three finishes. Your own space.</p>
-              <div><Link className="button" to="/products/arc?finish=pearl">Discover Arc <span aria-hidden="true">↗</span></Link><p className="concept-price">{money(arc.price)} · Concept price</p></div>
+              <p className="hero-description">Over-ear headphones. Three finishes.</p>
+              <div className="hero-shopping"><Link className="button" to="/products/arc?finish=pearl">Discover Arc <span aria-hidden="true">↗</span></Link><p className="concept-price"><span>{money(arc.price)}</span><span>Concept price</span></p></div>
               <div className="hero-footer"><span>Sona — The Listening Room</span><span>Shape, texture<br />and a little space.</span></div>
             </> : <>
               <Link className="back-link" to="/">← Back to the collection</Link>
@@ -161,17 +168,17 @@ export function App() {
           </div>
           <ProductGallery finish={finish} product={product} />
         </section>
-        <section className="material-story" aria-labelledby="material-heading"><div><p className="eyebrow">The details</p><h2 id="material-heading">A closer look<br />at the everyday.</h2><p>The curve of a headband. The edge of a cushion. Small details, given room to be seen.</p><p className="secondary-note">Original fictional product study.</p></div><figure><img src="/images/arc-detail.webp" width="1100" height="700" loading="lazy" alt="Close view of Arc’s original headband, sculpted yoke, and fabric cushion" /><figcaption><span>Arc / Material study</span><span>Sona</span></figcaption></figure></section>
+        <section className="material-story" aria-labelledby="material-heading"><div><p className="eyebrow">The details</p><h2 id="material-heading">A closer look<br />at the everyday.</h2><p>Woven texture. A sewn edge. A closer look at the cushion, where fabric meets metal.</p><p className="secondary-note">Original fictional product study.</p></div><figure><img src="/images/arc-detail.webp" width="1100" height="786" loading="lazy" alt="Macro view inside Arc’s woven ear cushion, with its stitched rim and contrasting metal frame" /><figcaption><span>Arc / Cushion study</span><span>Sona</span></figcaption></figure></section>
         {product && <section className="design-details"><button aria-expanded={detailsOpen} aria-controls="design-details-content" onClick={() => setDetailsOpen(!detailsOpen)}><span>Design details</span><span aria-hidden="true">{detailsOpen ? '−' : '+'}</span></button><div id="design-details-content" hidden={!detailsOpen}><p>Arc pairs an oval outer shell with a broad headband and a forked yoke. Choose Pearl, Graphite, or Fig; each finish shares the same original form.</p><p>This is a fictional design study. The price is illustrative; no audio performance, battery life, or manufacturing claims are made.</p></div></section>}
       </> : <section className="not-found"><p className="eyebrow">Page not found</p><h1 ref={heading} tabIndex={-1}>A little off track.</h1><Link className="button" to="/">Return to Sona <span aria-hidden="true">↗</span></Link></section>}
     </main>
     <footer className="site-footer"><Link className="wordmark" to="/" aria-label="Sona home">sona</Link><p>Fictional products. Portfolio concept. No payments.</p></footer>
 
-    <dialog className="cart-dialog" ref={dialog} aria-labelledby="cart-heading" onKeyDown={containDialogFocus} onCancel={event => { event.preventDefault(); closeBag(); }} onClick={event => { if (event.target === dialog.current) { const rect = dialog.current.getBoundingClientRect(); if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) closeBag(); } }}>
+    <dialog className="cart-dialog" ref={dialog} aria-labelledby="cart-heading" onKeyDown={containDialogFocus} onCancel={event => { event.preventDefault(); closeBag(); }} onPointerDown={event => { backdropPressed.current = event.button === 0 && isBackdrop(event); }} onPointerCancel={() => { backdropPressed.current = false; }} onClick={event => { const dismiss = backdropPressed.current && isBackdrop(event); backdropPressed.current = false; if (dismiss) closeBag(); }}>
       <div className="cart-header"><h2 id="cart-heading">Your bag</h2><button className="text-button cart-close" ref={closeButton} onClick={closeBag} aria-label="Close bag">Close <span aria-hidden="true">×</span></button></div>
       <div className="cart-content"><StorageNotice status={cart.status} />
         {cart.lines.length ? <><ul className="cart-lines">{cart.lines.map(line => <li className="cart-line" key={line.finish}>
-          <img className="cart-line__image" src={productImage(line.finish, 'small')} width="550" height="750" alt={`Arc in ${finishName(line.finish)}`} />
+          <img className="cart-line__image" src={productImage(line.finish, 'small')} width="550" height="550" alt={`Arc in ${finishName(line.finish)}`} />
           <div className="cart-line__details"><div className="cart-line__title"><h3>Arc</h3><span>{money(arc.price * line.quantity)}</span></div><p>{finishName(line.finish)}</p><div className="quantity-controls"><div className="quantity-stepper"><button onClick={() => cart.dispatch({ type: 'decrease', finish: line.finish })} disabled={line.quantity === 1} aria-label={`Decrease ${finishName(line.finish)} quantity`}>−</button><span aria-label={`Quantity ${line.quantity}`}>{line.quantity}</span><button onClick={() => cart.dispatch({ type: 'increase', finish: line.finish })} disabled={line.quantity === MAX_QUANTITY} aria-label={`Increase ${finishName(line.finish)} quantity`}>+</button></div><button className="text-button remove-item" data-remove={line.finish} onClick={() => removeLine(line.finish)} aria-label={`Remove Arc in ${finishName(line.finish)}`}>Remove</button></div>{line.quantity === MAX_QUANTITY && <p className="quantity-limit">Maximum {MAX_QUANTITY} per finish.</p>}</div>
         </li>)}</ul><div className="cart-summary"><div className="subtotal"><span>Subtotal</span><strong>{money(cart.total)}</strong></div><p>Fictional products and prices.<br />This portfolio concept does not take orders or payments.</p><button className="button button--wide" onClick={closeBag}>Continue exploring <span aria-hidden="true">↗</span></button></div></> : <div className="empty-bag"><span className="empty-bag__mark" aria-hidden="true">s</span><h3>A little room<br />for listening.</h3><p>Your bag is empty.</p><button className="button button--wide empty-bag__action" onClick={() => { if (product) closeBag(); else navigate('/products/arc?finish=pearl'); }}>Explore Arc <span aria-hidden="true">↗</span></button><p className="secondary-note">Fictional products. No payments.</p></div>}
       </div>

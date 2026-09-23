@@ -3,39 +3,83 @@ import * as THREE from 'three';
 // SONA ARC — original, deterministic product geometry.
 // All dimensions are authored here; no downloaded models or image textures.
 export const FINISHES = {
-  pearl: { shell: '#d6d0c5', fabric: '#777a73', band: '#d4cec3', inner: '#454843', metal: '#aeaaa2' },
-  graphite: { shell: '#646467', fabric: '#3f4345', band: '#555659', inner: '#26292b', metal: '#999896' },
-  fig: { shell: '#8a7388', fabric: '#615363', band: '#7f697c', inner: '#352c38', metal: '#a39b9f' },
+  pearl: { shell: '#d6d0c5', fabric: '#9da096', band: '#d4cec3', inner: '#454843', metal: '#bcb9b2' },
+  graphite: { shell: '#646467', fabric: '#61666a', band: '#555659', inner: '#26292b', metal: '#aaa9a6' },
+  fig: { shell: '#8a7388', fabric: '#8b7890', band: '#7f697c', inner: '#352c38', metal: '#b9b1b6' },
 };
 
 function seeded(seed=73241) { return () => { seed=(Math.imul(seed,1664525)+1013904223)>>>0; return seed/4294967296; }; }
 
 // A single repeat is an original woven thread pattern, generated at runtime.
 export function weaveTexture() {
-  const random=seeded(); const canvas=document.createElement('canvas');
-  canvas.width=canvas.height=512; const ctx=canvas.getContext('2d');
-  ctx.fillStyle='#686868'; ctx.fillRect(0,0,512,512);
-  for(let row=-1;row<65;row++) for(let col=-1;col<65;col++) {
-    const x=col*8,y=row*8; const shade=112+Math.floor(random()*30);
-    ctx.save();ctx.translate(x+4,y+4);ctx.rotate((row+col)%2 ? Math.PI/2:0);
-    ctx.fillStyle=`rgb(${shade},${shade},${shade})`;ctx.beginPath();ctx.ellipse(0,0,3.4,2.2,0,0,Math.PI*2);ctx.fill();
-    ctx.strokeStyle='rgba(238,238,238,.42)';ctx.lineWidth=.7;
-    for(let p=-1;p<=1;p++){ctx.beginPath();ctx.moveTo(-2.3,p*.8-.5);ctx.quadraticCurveTo(0,p*.8-1,2.3,p*.8-.5);ctx.stroke();}
-    ctx.restore();
+  // Original alternating warp/weft yarns, with individual filament striations.
+  const size=1024,cells=32,pitch=size/cells,random=seeded(73241),heights=new Float32Array(size*size);
+  const tone=Array.from({length:cells*cells},()=>.92+random()*.16);
+  const canvases={},images={},contexts={};
+  for(const name of ['height','normal','albedo','roughness']){
+    const canvas=document.createElement('canvas');canvas.width=canvas.height=size;
+    canvases[name]=canvas;contexts[name]=canvas.getContext('2d');images[name]=contexts[name].createImageData(size,size);
   }
-  const tex=new THREE.CanvasTexture(canvas);tex.wrapS=tex.wrapT=THREE.RepeatWrapping;
-  tex.repeat.set(6,1.6);tex.anisotropy=8;
-  const normalCanvas=document.createElement('canvas');normalCanvas.width=normalCanvas.height=512;
-  const nctx=normalCanvas.getContext('2d'),src=ctx.getImageData(0,0,512,512).data,dst=nctx.createImageData(512,512);
-  const height=(x,y)=>src[(((y+512)%512)*512+(x+512)%512)*4]/255;
-  for(let y=0;y<512;y++)for(let x=0;x<512;x++){
-    const nx=(height(x-1,y)-height(x+1,y))*2,ny=(height(x,y-1)-height(x,y+1))*2,nz=.65;
-    const inv=1/Math.hypot(nx,ny,nz),i=(y*512+x)*4;
-    dst.data[i]=(nx*inv*.5+.5)*255;dst.data[i+1]=(ny*inv*.5+.5)*255;dst.data[i+2]=(nz*inv*.5+.5)*255;dst.data[i+3]=255;
+  for(let y=0;y<size;y++)for(let x=0;x<size;x++){
+    const cx=Math.floor(x/pitch),cy=Math.floor(y/pitch),u=(x%pitch+.5)/pitch,v=(y%pitch+.5)/pitch;
+    const horizontal=(cx+cy)%2===0,across=horizontal?v:u,along=horizontal?u:v;
+    const crown=Math.sqrt(Math.max(0,1-Math.pow((across-.5)/.435,2)));
+    const under=Math.sqrt(Math.max(0,1-Math.pow((along-.5)/.435,2)))*.24;
+    const fiber=(Math.sin(across*Math.PI*18+Math.sin(along*Math.PI*2)*.45)*.035+Math.sin(across*Math.PI*42+along*2)*.012)*crown;
+    const h=Math.max(.09+under,.16+crown*(.59+.055*Math.cos(along*Math.PI*2))+fiber)+(random()-.5)*.018;
+    heights[y*size+x]=h;
+    const a=(.66+.28*h)*tone[cy*cells+cx]+(random()-.5)*.075;
+    const i=(y*size+x)*4;
+    for(const [name,value] of [['height',h],['albedo',a],['roughness',.96-.10*crown]]){
+      const data=images[name].data;data[i]=data[i+1]=data[i+2]=Math.max(0,Math.min(255,value*255));data[i+3]=255;
+    }
   }
-  nctx.putImageData(dst,0,0);const normal=new THREE.CanvasTexture(normalCanvas);
-  normal.wrapS=normal.wrapT=THREE.RepeatWrapping;normal.repeat.copy(tex.repeat);normal.anisotropy=8;
-  return {height:tex,normal};
+  const at=(x,y)=>heights[((y+size)%size)*size+(x+size)%size];
+  for(let y=0;y<size;y++)for(let x=0;x<size;x++){
+    const nx=(at(x-1,y)-at(x+1,y))*3.4,ny=(at(x,y-1)-at(x,y+1))*3.4,nz=1;
+    const inv=1/Math.hypot(nx,ny,nz),i=(y*size+x)*4,d=images.normal.data;
+    d[i]=(nx*inv*.5+.5)*255;d[i+1]=(ny*inv*.5+.5)*255;d[i+2]=(nz*inv*.5+.5)*255;d[i+3]=255;
+  }
+  const textures={};
+  for(const name of Object.keys(canvases)){
+    contexts[name].putImageData(images[name],0,0);const texture=new THREE.CanvasTexture(canvases[name]);
+    texture.wrapS=texture.wrapT=THREE.RepeatWrapping;texture.repeat.set(7,3.2);texture.anisotropy=16;
+    if(name==='albedo')texture.colorSpace=THREE.SRGBColorSpace;textures[name]=texture;
+  }
+  return textures;
+}
+
+function sewnCurve(pointAt, count, radius, material){
+  // Discrete curved stitches combined in one mesh; actual geometry at the seam.
+  const positions=[],indices=[];const sides=5,steps=5;
+  for(let stitch=0;stitch<count;stitch++){
+    const first=positions.length/3;
+    for(let j=0;j<=steps;j++){
+      const u=(stitch+.14+.68*j/steps)/count,p=pointAt(u);
+      const tangent=pointAt(Math.min(.999999,u+.00005)).sub(pointAt(Math.max(.000001,u-.00005))).normalize();
+      const side=new THREE.Vector3().crossVectors(tangent,new THREE.Vector3(1,0,0)).normalize();
+      if(side.lengthSq()<.1)side.set(0,0,1);
+      const normal=new THREE.Vector3().crossVectors(side,tangent).normalize();
+      for(let k=0;k<=sides;k++){
+        const a=k/sides*Math.PI*2,q=p.clone().addScaledVector(side,radius*Math.cos(a)).addScaledVector(normal,radius*Math.sin(a));positions.push(...q.toArray());
+      }
+    }
+    for(let j=0;j<steps;j++)for(let k=0;k<sides;k++){
+      const a=first+j*(sides+1)+k,b=a+sides+1;indices.push(a,b,a+1,b,b+1,a+1);
+    }
+  }
+  const geometry=new THREE.BufferGeometry();geometry.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));geometry.setIndex(indices);geometry.computeVertexNormals();
+  const mesh=new THREE.Mesh(geometry,material);mesh.name='Continuous sewn construction stitches';return mesh;
+}
+
+function paddedArch(material){
+  const geometry=meshFromGrid(192,48,(u,v)=>{
+    const t=.105+(Math.PI-.21)*u,a=v*Math.PI*2;
+    const normal=new THREE.Vector3(Math.cos(t)/1.175,Math.sin(t)/1.414,0).normalize();
+    const edge=Math.min(1,u/.025,(1-u)/.025),cap=Math.sin(edge*Math.PI/2);
+    const r=(-.031+.092*Math.cos(a))*cap,z=.169*Math.sign(Math.sin(a))*Math.pow(Math.abs(Math.sin(a)),.68)*cap;
+    return [1.175*Math.cos(t)+normal.x*r,2.502+1.414*Math.sin(t)+normal.y*r,z];
+  });const mesh=new THREE.Mesh(geometry,material);mesh.name='Rounded padded headband underside';return mesh;
 }
 
 function meshFromGrid(uCount,vCount,sample,closedU=false,closedV=false) {
@@ -94,12 +138,15 @@ function flattenedYoke(points,material){
 
 export function buildHeadphones(finish='pearl'){
   const colors=FINISHES[finish];const group=new THREE.Group();group.name='Sona Arc original assembly';
-  const {height:weave,normal:weaveNormal}=weaveTexture();
-  const shell=new THREE.MeshPhysicalMaterial({color:colors.shell,metalness:.43,roughness:.38,clearcoat:.12,clearcoatRoughness:.5});
-  const band=new THREE.MeshPhysicalMaterial({color:colors.band,metalness:.24,roughness:.44});
-  const fabric=new THREE.MeshPhysicalMaterial({color:colors.fabric,roughness:.94,metalness:0,normalMap:weaveNormal,normalScale:new THREE.Vector2(.72,.72),sheen:.42,sheenRoughness:.86,sheenColor:new THREE.Color(colors.fabric).multiplyScalar(1.25)});
-  const lining=new THREE.MeshStandardMaterial({color:colors.inner,roughness:.97,normalMap:weaveNormal,normalScale:new THREE.Vector2(.32,.32)});
-  const metal=new THREE.MeshPhysicalMaterial({color:colors.metal,metalness:.9,roughness:.31});
+  const weave=weaveTexture();
+  const shell=new THREE.MeshPhysicalMaterial({color:colors.shell,metalness:.37,roughness:.34,clearcoat:.14,clearcoatRoughness:.42});
+  const band=new THREE.MeshPhysicalMaterial({color:colors.band,metalness:.24,roughness:.39});
+  const fabric=new THREE.MeshPhysicalMaterial({color:colors.fabric,map:weave.albedo,roughness:1,roughnessMap:weave.roughness,metalness:0,normalMap:weave.normal,normalScale:new THREE.Vector2(.65,.65),sheen:.72,sheenRoughness:.85,sheenColor:new THREE.Color(colors.fabric).multiplyScalar(1.7)});
+  const lining=new THREE.MeshStandardMaterial({color:colors.inner,map:weave.albedo,roughness:1,normalMap:weave.normal,normalScale:new THREE.Vector2(.38,.38)});
+  const metal=new THREE.MeshPhysicalMaterial({color:colors.metal,metalness:.96,roughness:.235});
+  const welt=new THREE.MeshStandardMaterial({color:new THREE.Color(colors.fabric).multiplyScalar(.4),roughness:.98});
+  const thread=new THREE.MeshStandardMaterial({color:new THREE.Color(colors.fabric).multiplyScalar(.95),roughness:.93});
+  for(const material of [fabric,lining,welt,thread])material.userData.textile=true;
   const seam=new THREE.MeshStandardMaterial({color:new THREE.Color(colors.shell).multiplyScalar(.56),metalness:.32,roughness:.57});
   const dark=new THREE.MeshStandardMaterial({color:'#111315',roughness:.8});
   const hardware=new THREE.MeshStandardMaterial({color:new THREE.Color(colors.shell).multiplyScalar(.83),metalness:.55,roughness:.37});
@@ -126,7 +173,9 @@ export function buildHeadphones(finish='pearl'){
     cup.add(ovalDisk(.77,.455,-.135,lining));
     cup.add(ellipseRing(-.168,.715,.402,.008,lining));
     // Fine peripheral seam in the textile, not an image-based decal.
-    cup.add(ellipseRing(-.281,.939,.62,.0055,fabric));
+    const seamX=-.171-.175*Math.pow(Math.SQRT1_2,.64),seamY=.865+.177*Math.SQRT1_2,seamZ=.548+.168*Math.SQRT1_2;
+    cup.add(ellipseRing(seamX,seamY,seamZ,.004,welt));
+    cup.add(sewnCurve(u=>{const t=u*Math.PI*2;return new THREE.Vector3(seamX-.0055,(seamY+.003)*Math.cos(t),(seamZ+.003)*Math.sin(t));},148,.0024,thread));
     // A restrained rear-edge control and a tiny milled microphone slot.
     if(side===-1){
       const button=new THREE.Mesh(new THREE.CapsuleGeometry(.044,.118,8,20),hardware);
@@ -154,7 +203,10 @@ export function buildHeadphones(finish='pearl'){
     }
   }
   group.add(archStrip({},band));
-  group.add(archStrip({xRadius:1.176,yRadius:1.415,yBase:2.508,depth:.351,thickness:.132,start:.11,end:Math.PI-.11},fabric));
+  group.add(paddedArch(fabric));
+  for(const z of [-.148,.148]){
+    group.add(sewnCurve(u=>{const t=.17+(Math.PI-.34)*u,n=new THREE.Vector3(Math.cos(t)/1.175,Math.sin(t)/1.414,0).normalize();return new THREE.Vector3(1.175*Math.cos(t)-n.x*.079,2.502+1.414*Math.sin(t)-n.y*.079,z);},126,.0026,thread));
+  }
   // Tiny edge piping preserves a crisp silhouette on the textile underside.
   for(const z of [-.173,.173]){
     const curve=new THREE.EllipseCurve(0,2.50,1.21,1.51,0,Math.PI,false,0);
@@ -196,7 +248,11 @@ export function createScene(finish='pearl',detail=false){
   const fill=new THREE.RectAreaLight('#e0d4e5',1.2,3,4);fill.position.set(5,2.8,5);fill.lookAt(0,2,0);scene.add(fill);
   const aspect=1100/1500;
   const camera=new THREE.PerspectiveCamera(35,aspect,.1,100);
-  if(detail){camera.position.set(4.3,3.3,5.3);camera.lookAt(.72,1.81,.1);camera.fov=24;}
+  if(detail){
+    camera.position.set(-3.4,2.3,3.8);camera.lookAt(.74,1.34,.1);camera.fov=22;
+    const backdropNormal=new THREE.Vector3(-3.4-.74,0,3.8-.1).normalize();
+    wall.rotation.y=Math.atan2(backdropNormal.x,backdropNormal.z);wall.position.set(.74-backdropNormal.x*3.5,1,.1-backdropNormal.z*3.5);
+  }
   else{camera.position.set(7.2,3.45,6.8);camera.lookAt(0,1.94,0);camera.fov=30;}
   camera.updateProjectionMatrix();
   return {scene,camera,headphones};

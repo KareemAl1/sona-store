@@ -1,5 +1,7 @@
 # Sona milestone one — verification
 
+This is the original milestone's historical verification record. See [visual refinement verification](refinement.md) for the current assets, motion, screenshots, and final test results.
+
 Verified locally on September 14, 2026. Implementation scope: homepage → Arc in Pearl, Graphite, and Fig → persistent bag. The fixed local preview is **http://127.0.0.1:4173/**.
 
 ## Final results

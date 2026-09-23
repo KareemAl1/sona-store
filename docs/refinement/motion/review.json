@@ -1,0 +1,116 @@
+{
+  "method": "Actual browser animation keyframes paused at 0%, 50%, and 100% of timeline duration for visual inspection; interaction interruption is separately exercised by the browser regression suite.",
+  "browser": "153.0.8010.54",
+  "results": [
+    {
+      "name": "desktop",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "moments": [
+        {
+          "moment": "opening",
+          "duration": 520,
+          "easing": "cubic-bezier(0.22, 1, 0.36, 1)",
+          "keyframeEasings": [
+            "linear",
+            "linear"
+          ],
+          "wasRunning": true,
+          "zoom": 1
+        },
+        {
+          "moment": "product",
+          "duration": 340,
+          "easing": "cubic-bezier(0.22, 1, 0.36, 1)",
+          "keyframeEasings": [
+            "linear",
+            "linear"
+          ],
+          "wasRunning": true,
+          "zoom": 1
+        },
+        {
+          "moment": "finish",
+          "duration": 190,
+          "easing": "cubic-bezier(0.2, 0, 0.2, 1)",
+          "keyframeEasings": [
+            "linear",
+            "linear"
+          ],
+          "wasRunning": true,
+          "zoom": 1
+        },
+        {
+          "moment": "cart",
+          "duration": 260,
+          "easing": "linear",
+          "keyframeEasings": [
+            "cubic-bezier(0.22, 1, 0.36, 1)",
+            "cubic-bezier(0.22, 1, 0.36, 1)"
+          ],
+          "wasRunning": true,
+          "zoom": 1
+        }
+      ],
+      "reducedRunning": 0,
+      "errors": []
+    },
+    {
+      "name": "phone",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "moments": [
+        {
+          "moment": "opening",
+          "duration": 360,
+          "easing": "cubic-bezier(0.22, 1, 0.36, 1)",
+          "keyframeEasings": [
+            "linear",
+            "linear"
+          ],
+          "wasRunning": true,
+          "zoom": 1
+        },
+        {
+          "moment": "product",
+          "duration": 220,
+          "easing": "cubic-bezier(0.22, 1, 0.36, 1)",
+          "keyframeEasings": [
+            "linear",
+            "linear"
+          ],
+          "wasRunning": true,
+          "zoom": 1
+        },
+        {
+          "moment": "finish",
+          "duration": 160,
+          "easing": "cubic-bezier(0.2, 0, 0.2, 1)",
+          "keyframeEasings": [
+            "linear",
+            "linear"
+          ],
+          "wasRunning": true,
+          "zoom": 1
+        },
+        {
+          "moment": "cart",
+          "duration": 200,
+          "easing": "linear",
+          "keyframeEasings": [
+            "cubic-bezier(0.22, 1, 0.36, 1)",
+            "cubic-bezier(0.22, 1, 0.36, 1)"
+          ],
+          "wasRunning": true,
+          "zoom": 1
+        }
+      ],
+      "reducedRunning": 0,
+      "errors": []
+    }
+  ]
+}

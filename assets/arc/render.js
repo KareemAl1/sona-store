@@ -42,7 +42,20 @@ if(mode==='raster'){
  function render(){
   tracer.renderSample();window.statusInfo.samples=tracer.samples;
   if(tracer.samples<samples)requestAnimationFrame(render);else {
-   const denoise=new DenoiseMaterial({map:tracer.target.texture,sigma:2.2,kSigma:1.5,threshold:.085});
+   // An exact material mask keeps yarn/stitch detail while smoothing the satin
+   // shell and background more strongly. This is deterministic native rendering.
+   const maskTarget=new THREE.WebGLRenderTarget(width,height);
+   const white=new THREE.MeshBasicMaterial({color:0xffffff,side:THREE.DoubleSide,toneMapped:false});
+   const black=new THREE.MeshBasicMaterial({color:0,side:THREE.DoubleSide,toneMapped:false});
+   const saved=[];scene.traverse(object=>{if(object.isMesh){saved.push([object,object.material]);object.material=object.material.userData.textile?white:black;}});
+   const background=scene.background;scene.background=new THREE.Color(0);
+   renderer.setRenderTarget(maskTarget);renderer.render(scene,camera);
+   for(const [object,material] of saved)object.material=material;scene.background=background;
+   const denoise=new DenoiseMaterial({map:tracer.target.texture,sigma:2.3,kSigma:1.5,threshold:.075});
+   denoise.uniforms.textileMask={value:maskTarget.texture};
+   denoise.fragmentShader=denoise.fragmentShader.replace('uniform sampler2D map;', 'uniform sampler2D map; uniform sampler2D textileMask;');
+   denoise.fragmentShader=denoise.fragmentShader.replace('smartDeNoise( map, vec2( vUv.x, vUv.y ), sigma, kSigma, threshold )',
+    'smartDeNoise( map, vec2( vUv.x, vUv.y ), mix(2.3,1.0,texture2D(textileMask,vUv).r), kSigma, mix(0.075,0.024,texture2D(textileMask,vUv).r) )');
    const quad=new FullScreenQuad(denoise);renderer.setRenderTarget(null);quad.render(renderer);
    window.statusInfo.stage='complete';
   }

@@ -12,7 +12,7 @@ CSS carries the typography, spacing, image transitions, and responsive behavior.
 - Missing/invalid finish values safely resolve to Pearl. Unrelated search parameters are preserved.
 - Choosing a finish pushes one history entry. Browser Back/Forward restores prior finish selections.
 - `cart=open` opens the bag as a modal over the current route. In-app entries get a tab-local history-key guard. Closing those entries goes Back; a direct or reloaded bag URL closes by replacing only its `cart` parameter. This prevents Close from unexpectedly leaving the product.
-- The native dialog makes the underlying page inert. Escape, backdrop click, and Close use the same history-aware dismissal. The opener regains focus only if the shopper remains on the same page; otherwise the new route heading receives focus.
+- The native dialog makes the underlying page inert. Escape, backdrop click, and Close use the same history-aware dismissal. Backdrop dismissal requires both the initial press and click to be outside the drawer, so dragging from cart content does not accidentally close it. The opener regains focus only if the shopper remains on the same page; otherwise the new route heading receives focus.
 - Path changes update the document title, focus, and scroll. Finish and bag query changes do not reset scroll. Browser Back restores saved page positions.
 
 React Router's deferred UI transitions are disabled so its URL-controlled radio group updates during the selection event. The separate image transitions remain cosmetic. Add-to-bag also reads the current URL at activation, so a just-selected finish is honored even during a rapid interaction. No state mutation waits for an animation or image load.
@@ -29,19 +29,27 @@ The lazy initializer reads saved data before the first cart render. The save eff
 
 One authored mesh assembly defines Arc. The geometry, camera, light positions, environment, and output dimensions are held constant for all finishes; only material colors vary. The source and GLB are kept in `assets/arc`. No generated product photographs, stock meshes, external textures, or third-party logos are shipped. The procedural textile texture is original and deterministic.
 
-Responsive square WebP exports (1100px and 550px) serve the storefront; geometry and path tracing are not downloaded by shoppers. The original portrait framing cropped the headband in a wide viewport, so the same scene was rendered with a square camera aspect. Camera position, target, vertical field of view, geometry, and lighting remain fixed between all three square finish renders. Mobile gallery height scales with its width to preserve the full silhouette between phone and tablet sizes. The material detail is rendered from the same model with a closer camera. Instrument Serif and Manrope are self-hosted with their SIL Open Font License notices in `public/fonts`.
+Responsive square WebP exports (1100px and 550px) serve the storefront; geometry and path tracing are not downloaded by shoppers. The refined assembly adds a fabric-covered underside pad, cushion seams, and contrasting textile, satin shell, and metal materials. Original procedural weave maps provide color, height, normal, and roughness detail. A source verifier compares geometry fingerprints and projected bounds across every finish, alongside camera parameters and asset hashes.
+
+The square hero camera remains locked. Mobile gallery height scales with its width to preserve the full silhouette between phone and tablet sizes. A purpose-made 1400×1000 macro looks into the cushion from another angle, revealing the sewn rim and inner fabric. It exports proportionally at 1100×786 and displays without an additional CSS crop. The original portrait assets are retained as historical source material; the current hero and macro exports are identified in `assets/arc/README.md`. Instrument Serif and Manrope are self-hosted with their SIL Open Font License notices in `public/fonts`.
 
 ## Motion and responsiveness
 
-- Opening: already-visible product settles 12px/1.02 scale in 480ms; mobile uses 6px/300ms. It runs once per app visit.
-- Homepage to product: matching image reframes in 320ms; mobile uses a 180ms fade. Purchase controls appear immediately.
-- Finish selection: preloaded aligned image layers blend in 160ms (140ms mobile). Interrupted selections blend toward the latest choice.
-- Cart: data updates immediately; a 220ms drawer entrance becomes 180ms on mobile. Close never waits for an exit animation.
+- Opening: after the Pearl image has decoded, it settles 10px/1.025 scale in 520ms; mobile uses 6px/1.015 scale in 360ms. It runs once per app visit. Slow image loading cannot consume the reveal before the image appears.
+- Homepage to product: the matching image reframes at 1.035 scale in 340ms; mobile uses a 6px/220ms destination reveal with opacity starting at .82. Movement is clipped to the gallery. Purchase controls appear immediately.
+- Finish selection: decoded, aligned image layers blend in 190ms (160ms mobile). Interrupted selections blend toward the latest choice without a queue.
+- Cart: data updates immediately; a 260ms drawer entrance becomes 200ms on mobile. The drawer remains opaque throughout so underlying imagery cannot compete with labels. Close never waits for an exit animation. Quantity controls work during entry.
 - Reduced motion removes transforms, fades, and drawer motion, including when the preference changes while the page is open.
 
 Normal scrolling remains native. Mobile has an early, sticky purchase summary with the current finish and price. The modal has its own native overflow and a sticky close control; body scroll locking is restored consistently. No scroll-jacking, pinned narrative sequence, autoplay audio, looping effects, or animation overlays intercept input.
 
-If a selected image is delayed or unavailable, a clearly labeled preview status replaces it while finish selection and cart actions remain available. Images reserve dimensions to avoid loading shifts.
+If a selected image is delayed or unavailable, the prior decoded finish remains visible with an explicit label such as “Showing Pearl.” The selected radio and cart action still refer to the newly chosen finish. If no prior image exists, the gallery shows a preview status. Images reserve dimensions to avoid loading shifts.
+
+## Readability and layout
+
+Navigation, finish labels, and primary shopping controls use 16px text at the default root size; product body text uses 18px. The homepage's shorter phone description uses 17px. A 560px desktop cart gives thumbnails and controls room to breathe. Quantity buttons have 48px targets, visible separators, and 18px tabular numerals. The phone cart fills the viewport.
+
+The mobile opening brings the product forward by shortening the introduction and placing the concept price beside the entry action when space permits. Headers, purchase summaries, and shopping actions wrap under enlarged text instead of clipping. Finish labels remain named radio inputs with an explicit checked treatment. Tests cover 200% root text at both 390px and 640px widths.
 
 ## Accessibility and test strategy
 
