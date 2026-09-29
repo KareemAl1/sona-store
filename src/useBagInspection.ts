@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useCart } from './cart/CartProvider';
-import { arc } from './catalog';
+import { products } from './catalog';
 
 type ModelContext = { registerTool: (tool: { name: string; title: string; description: string; inputSchema: object; annotations: { readOnlyHint: boolean }; execute: (input: unknown) => unknown }, options: { signal: AbortSignal }) => unknown };
 
@@ -22,7 +22,7 @@ export function useBagInspection() {
         execute(input: unknown) {
           if (!input || typeof input !== 'object' || Array.isArray(input) || Object.keys(input).length) throw new TypeError('Expected an empty object');
           const state = latest.current;
-          return { currency: 'USD', subtotalCents: state.total, itemCount: state.count, storage: state.status, fictional: true, lines: state.lines.map(line => ({ ...line, unitPriceCents: arc.price })) };
+          return { currency: 'USD', subtotalCents: state.total, itemCount: state.count, storage: state.status, fictional: true, lines: state.lines.map(line => ({ ...line, unitPriceCents: products[line.productId].price })) };
         },
       }, { signal: lifecycle.signal })).catch(() => { /* Browser enhancement is optional. */ });
     } catch { /* Unsupported implementations must not affect shopping. */ }

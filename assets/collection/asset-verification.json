@@ -1,0 +1,648 @@
+{
+  "sourceHashes": {
+    "model.js": "66b2ad29907dcb602b5dac0a7ca6fccdea9b118e5734dabc1eb0b0a9c54578d0",
+    "studio.js": "bfe1c15352a00dac0233dd7ddf3a93b6f5406263c2b90e3695b771fe51b8538b",
+    "render.js": "7f32c2ddf4e817fb8099588a9454cf766873d2c185512ba3a49d0484d307f08c",
+    "index.html": "a394d7421668af2c969b625a06556c5399b146bcde485b8359f161a102e025d9",
+    "browser.cjs": "52afaee42c2c535ab2e29544217f551482b0b5cbce088b10403b7a284fbd0d00",
+    "serve.cjs": "5429431df54173b4767fcf42a9487478e30bb226b02ecea039c7df179907448b",
+    "capture.cjs": "e9db20dafb47112614c62fc669cc514ed55d7a1bae3dcf1e56664bc119b97574",
+    "export-source.cjs": "c89b61566688970e1873ec11ace1753ab2d3b2c0bc583f89e47b4973d16b120e",
+    "export-web.cjs": "d85153cb5ed4a6ec87c08fc7fd54c06f4e357a2eea441a62202934153afacef3",
+    "verify-assets.cjs": "155bead97534c21aa13b46865e7a681eaf0f202d4a1d01ce2bf5def62afd60ee"
+  },
+  "geometry": {
+    "dot": {
+      "stats": {
+        "pearl": {
+          "meshes": 34,
+          "triangles": 110972,
+          "geometrySha256": "795a8d10b2789559825971b27a87c026238129d79c67dc08454ada7e7d6b8db7",
+          "bounds": {
+            "min": [
+              -1.4930000305175781,
+              0.049999997615813974,
+              -1.23190347444226
+            ],
+            "max": [
+              1.4930000305175781,
+              2.699313215346766,
+              0.9430000185966493
+            ]
+          },
+          "heroProjectionBounds1100": {
+            "min": [
+              221.61171932130648,
+              167.36881436720014
+            ],
+            "max": [
+              975.5383651282899,
+              913.5124543149549
+            ]
+          }
+        },
+        "graphite": {
+          "meshes": 34,
+          "triangles": 110972,
+          "geometrySha256": "795a8d10b2789559825971b27a87c026238129d79c67dc08454ada7e7d6b8db7",
+          "bounds": {
+            "min": [
+              -1.4930000305175781,
+              0.049999997615813974,
+              -1.23190347444226
+            ],
+            "max": [
+              1.4930000305175781,
+              2.699313215346766,
+              0.9430000185966493
+            ]
+          },
+          "heroProjectionBounds1100": {
+            "min": [
+              221.61171932130648,
+              167.36881436720014
+            ],
+            "max": [
+              975.5383651282899,
+              913.5124543149549
+            ]
+          }
+        },
+        "fig": {
+          "meshes": 34,
+          "triangles": 110972,
+          "geometrySha256": "795a8d10b2789559825971b27a87c026238129d79c67dc08454ada7e7d6b8db7",
+          "bounds": {
+            "min": [
+              -1.4930000305175781,
+              0.049999997615813974,
+              -1.23190347444226
+            ],
+            "max": [
+              1.4930000305175781,
+              2.699313215346766,
+              0.9430000185966493
+            ]
+          },
+          "heroProjectionBounds1100": {
+            "min": [
+              221.61171932130648,
+              167.36881436720014
+            ],
+            "max": [
+              975.5383651282899,
+              913.5124543149549
+            ]
+          }
+        }
+      },
+      "cameras": {
+        "hero": {
+          "position": [
+            6.5,
+            4.3,
+            7.6
+          ],
+          "target": [
+            0,
+            1.15,
+            0
+          ],
+          "fov": 27,
+          "aspect": 1,
+          "quaternion": [
+            -0.14257020404867396,
+            0.3424131083161932,
+            0.05265227277489284,
+            0.9271756782521857
+          ],
+          "matrixWorld": [
+            0.7599620028497625,
+            -1.3877787807814457e-17,
+            -0.649967502437297,
+            0,
+            -0.19527162688632144,
+            0.9538029501783155,
+            -0.2283175945132373,
+            0,
+            0.6199409213447252,
+            0.30043290803628986,
+            0.7248540003415248,
+            0,
+            6.5,
+            4.3,
+            7.6,
+            1
+          ],
+          "projectionMatrix": [
+            4.165299770090417,
+            0,
+            0,
+            0,
+            0,
+            4.165299770090417,
+            0,
+            0,
+            0,
+            0,
+            -1.002002002002002,
+            -1,
+            0,
+            0,
+            -0.20020020020020018,
+            0
+          ]
+        },
+        "macro": {
+          "position": [
+            -2.2,
+            3.55,
+            3.6
+          ],
+          "target": [
+            -0.47,
+            1.11,
+            -0.22
+          ],
+          "fov": 25,
+          "aspect": 1.4,
+          "quaternion": [
+            -0.2545822117902127,
+            -0.20374169274505036,
+            -0.05496077351670755,
+            0.9437460110918774
+          ],
+          "matrixWorld": [
+            0.9109372720236534,
+            1.3877787807814457e-17,
+            0.41254489020966506,
+            0,
+            0.2074760430916674,
+            0.864334421628897,
+            -0.4581262916821788,
+            0,
+            -0.3565767490753276,
+            0.5029174958056641,
+            0.7873544401547696,
+            0,
+            -2.2,
+            3.55,
+            3.6,
+            1
+          ],
+          "projectionMatrix": [
+            3.2219346454728988,
+            0,
+            0,
+            0,
+            0,
+            4.510708503662058,
+            0,
+            0,
+            0,
+            0,
+            -1.002002002002002,
+            -1,
+            0,
+            0,
+            -0.20020020020020018,
+            0
+          ]
+        }
+      }
+    },
+    "room": {
+      "stats": {
+        "pearl": {
+          "meshes": 54,
+          "triangles": 28968,
+          "geometrySha256": "4fad1df3c5209c884369193a34237be412b7931b542dab83df6b0c2cbb1c798f",
+          "bounds": {
+            "min": [
+              -1.350000023841858,
+              0.00199999962747097,
+              -1.0295000000745058
+            ],
+            "max": [
+              1.350000023841858,
+              4.023000000094995,
+              1.0860000002160668
+            ]
+          },
+          "heroProjectionBounds1100": {
+            "min": [
+              226.21148304324623,
+              148.53634709025852
+            ],
+            "max": [
+              853.6749187254071,
+              1012.2563887870607
+            ]
+          }
+        },
+        "graphite": {
+          "meshes": 54,
+          "triangles": 28968,
+          "geometrySha256": "4fad1df3c5209c884369193a34237be412b7931b542dab83df6b0c2cbb1c798f",
+          "bounds": {
+            "min": [
+              -1.350000023841858,
+              0.00199999962747097,
+              -1.0295000000745058
+            ],
+            "max": [
+              1.350000023841858,
+              4.023000000094995,
+              1.0860000002160668
+            ]
+          },
+          "heroProjectionBounds1100": {
+            "min": [
+              226.21148304324623,
+              148.53634709025852
+            ],
+            "max": [
+              853.6749187254071,
+              1012.2563887870607
+            ]
+          }
+        },
+        "fig": {
+          "meshes": 54,
+          "triangles": 28968,
+          "geometrySha256": "4fad1df3c5209c884369193a34237be412b7931b542dab83df6b0c2cbb1c798f",
+          "bounds": {
+            "min": [
+              -1.350000023841858,
+              0.00199999962747097,
+              -1.0295000000745058
+            ],
+            "max": [
+              1.350000023841858,
+              4.023000000094995,
+              1.0860000002160668
+            ]
+          },
+          "heroProjectionBounds1100": {
+            "min": [
+              226.21148304324623,
+              148.53634709025852
+            ],
+            "max": [
+              853.6749187254071,
+              1012.2563887870607
+            ]
+          }
+        }
+      },
+      "cameras": {
+        "hero": {
+          "position": [
+            6.4,
+            4,
+            8.6
+          ],
+          "target": [
+            0,
+            2,
+            0
+          ],
+          "fov": 29,
+          "aspect": 1,
+          "quaternion": [
+            -0.08742034458505983,
+            0.3131210072634047,
+            0.028959008500614277,
+            0.9452376917948424
+          ],
+          "matrixWorld": [
+            0.8022332212740244,
+            0,
+            -0.5970107693202042,
+            0,
+            -0.10949258540715144,
+            0.9830381183585815,
+            -0.14713066164085975,
+            0,
+            0.5868843433123427,
+            0.1834013572851071,
+            0.7886258363259605,
+            0,
+            6.4,
+            4,
+            8.6,
+            1
+          ],
+          "projectionMatrix": [
+            3.8667130948987385,
+            0,
+            0,
+            0,
+            0,
+            3.8667130948987385,
+            0,
+            0,
+            0,
+            0,
+            -1.002002002002002,
+            -1,
+            0,
+            0,
+            -0.20020020020020018,
+            0
+          ]
+        },
+        "macro": {
+          "position": [
+            2.5,
+            5.8,
+            4
+          ],
+          "target": [
+            0.3,
+            3.52,
+            0.65
+          ],
+          "fov": 25,
+          "aspect": 1.4,
+          "quaternion": [
+            -0.24502359867273055,
+            0.27694417160151746,
+            0.07326260011929471,
+            0.9262278085509926
+          ],
+          "matrixWorld": [
+            0.8358690344794191,
+            -2.7755575615628914e-17,
+            -0.5489289181655888,
+            0,
+            -0.2714314302289681,
+            0.86919205503445,
+            -0.4133160414850196,
+            0,
+            0.4771246544481855,
+            0.4944746418826648,
+            0.7265307238188279,
+            0,
+            2.5,
+            5.8,
+            4,
+            1
+          ],
+          "projectionMatrix": [
+            3.2219346454728988,
+            0,
+            0,
+            0,
+            0,
+            4.510708503662058,
+            0,
+            0,
+            0,
+            0,
+            -1.002002002002002,
+            -1,
+            0,
+            0,
+            -0.20020020020020018,
+            0
+          ]
+        }
+      }
+    }
+  },
+  "renders": {
+    "dot-pearl-square.png": {
+      "sha256": "c5279bfcef4420162cf278b16eed95318c79d3a0f2474126978c4fd7093f8f90",
+      "width": 1100,
+      "height": 1100,
+      "nonOpaquePixels": 0,
+      "capture": {
+        "product": "dot",
+        "finish": "pearl",
+        "mode": "path",
+        "width": 1100,
+        "height": 1100,
+        "requestedSamples": 512,
+        "completedSamples": 512,
+        "capturedAt": "2026-09-29T15:07:38.545Z",
+        "browserVersion": "154.0.4258.37"
+      }
+    },
+    "dot-graphite-square.png": {
+      "sha256": "8a4f444c5e5a14911774529794c4b99feb814d9ec05933df41a2b3400f965498",
+      "width": 1100,
+      "height": 1100,
+      "nonOpaquePixels": 0,
+      "capture": {
+        "product": "dot",
+        "finish": "graphite",
+        "mode": "path",
+        "width": 1100,
+        "height": 1100,
+        "requestedSamples": 512,
+        "completedSamples": 512,
+        "capturedAt": "2026-09-29T15:08:29.207Z",
+        "browserVersion": "154.0.4258.37"
+      }
+    },
+    "dot-fig-square.png": {
+      "sha256": "d2b2c51ea27eb5891ab3db54250cb9b4a82b297aa7474f1ea60bb103fe0e1bb6",
+      "width": 1100,
+      "height": 1100,
+      "nonOpaquePixels": 0,
+      "capture": {
+        "product": "dot",
+        "finish": "fig",
+        "mode": "path",
+        "width": 1100,
+        "height": 1100,
+        "requestedSamples": 512,
+        "completedSamples": 512,
+        "capturedAt": "2026-09-29T15:09:19.828Z",
+        "browserVersion": "154.0.4258.37"
+      }
+    },
+    "dot-pearl-macro.png": {
+      "sha256": "9348b40e893d2afcd158063ce94835a525ed9d646191c1cdd32ebb6c43fdd094",
+      "width": 1400,
+      "height": 1000,
+      "nonOpaquePixels": 0,
+      "capture": {
+        "product": "dot",
+        "finish": "pearl",
+        "mode": "path",
+        "width": 1400,
+        "height": 1000,
+        "requestedSamples": 768,
+        "completedSamples": 768,
+        "capturedAt": "2026-09-29T15:12:01.159Z",
+        "browserVersion": "154.0.4258.37"
+      }
+    },
+    "room-pearl-square.png": {
+      "sha256": "1e3174f2d603a90d71482860e8957cc0e2fe2c52fcdee3ef4ce95e44d59bbd18",
+      "width": 1100,
+      "height": 1100,
+      "nonOpaquePixels": 0,
+      "capture": {
+        "product": "room",
+        "finish": "pearl",
+        "mode": "path",
+        "width": 1100,
+        "height": 1100,
+        "requestedSamples": 512,
+        "completedSamples": 512,
+        "capturedAt": "2026-09-29T15:05:53.759Z",
+        "browserVersion": "154.0.4258.37"
+      }
+    },
+    "room-graphite-square.png": {
+      "sha256": "896468b2857771c3e8bc6dd7fa631d0c2b2849b6aa80b2db353b5e7bd568a41e",
+      "width": 1100,
+      "height": 1100,
+      "nonOpaquePixels": 0,
+      "capture": {
+        "product": "room",
+        "finish": "graphite",
+        "mode": "path",
+        "width": 1100,
+        "height": 1100,
+        "requestedSamples": 512,
+        "completedSamples": 512,
+        "capturedAt": "2026-09-29T15:10:05.155Z",
+        "browserVersion": "154.0.4258.37"
+      }
+    },
+    "room-fig-square.png": {
+      "sha256": "0212e8d107a592734d58df15cb12b9d2e8da89de68c60115987ae74faaeb0b6b",
+      "width": 1100,
+      "height": 1100,
+      "nonOpaquePixels": 0,
+      "capture": {
+        "product": "room",
+        "finish": "fig",
+        "mode": "path",
+        "width": 1100,
+        "height": 1100,
+        "requestedSamples": 512,
+        "completedSamples": 512,
+        "capturedAt": "2026-09-29T15:10:50.840Z",
+        "browserVersion": "154.0.4258.37"
+      }
+    },
+    "room-pearl-macro.png": {
+      "sha256": "6dd73393b092ab98d2813f790ddcdfb43e0932712f78773b0d8e3165bb0e5698",
+      "width": 1400,
+      "height": 1000,
+      "nonOpaquePixels": 0,
+      "capture": {
+        "product": "room",
+        "finish": "pearl",
+        "mode": "path",
+        "width": 1400,
+        "height": 1000,
+        "requestedSamples": 768,
+        "completedSamples": 768,
+        "capturedAt": "2026-09-29T15:12:51.945Z",
+        "browserVersion": "154.0.4258.37"
+      }
+    }
+  },
+  "web": {
+    "dot-pearl-1100.webp": {
+      "sha256": "462f23570c819393382222a80c9d5d8bd612dba3d1332ab8b2bad5c855b03422",
+      "width": 1100,
+      "height": 1100,
+      "bytes": 38034
+    },
+    "dot-pearl-550.webp": {
+      "sha256": "ff09ca2335cf73cfefc6e6da58b06ba2471790f92d29c865f8c23ec0e3498be4",
+      "width": 550,
+      "height": 550,
+      "bytes": 11644
+    },
+    "dot-graphite-1100.webp": {
+      "sha256": "2e30378d88f5f85a3e4f9a8988d10489a3fceb3185e1366648d96fec4165fcf0",
+      "width": 1100,
+      "height": 1100,
+      "bytes": 21964
+    },
+    "dot-graphite-550.webp": {
+      "sha256": "aa2c2862f3cbc06dd47368a7fc1babe844321fc0d9f50b22cf6edc9e42569403",
+      "width": 550,
+      "height": 550,
+      "bytes": 7878
+    },
+    "dot-fig-1100.webp": {
+      "sha256": "7f2a4280bf1383c929789bef78e15869c2bb4d454553852268638d0f47b52748",
+      "width": 1100,
+      "height": 1100,
+      "bytes": 26808
+    },
+    "dot-fig-550.webp": {
+      "sha256": "cd0e79da170c3450cb4efb455e8d67033fae45ff3b87a4705969b7d706a797e7",
+      "width": 550,
+      "height": 550,
+      "bytes": 9624
+    },
+    "dot-detail.webp": {
+      "sha256": "1dee0ed739262020171eeae0bb6a2565f81751f3caa5640f5ff30bc8b697580c",
+      "width": 1100,
+      "height": 786,
+      "bytes": 35804
+    },
+    "room-pearl-1100.webp": {
+      "sha256": "69f7453d5f0ff0dbdf6fed492ca843d044e40a896fec7e833e3581fe8e4bf76d",
+      "width": 1100,
+      "height": 1100,
+      "bytes": 85396
+    },
+    "room-pearl-550.webp": {
+      "sha256": "1e521028791d2bcea97b3fb354b0a411e2cc19ac7f708963f884d15fa7bbb1de",
+      "width": 550,
+      "height": 550,
+      "bytes": 17134
+    },
+    "room-graphite-1100.webp": {
+      "sha256": "401ec02f717863a752ff3b13def4a8d88b5c5a75f5d716e25081268e02fccf8a",
+      "width": 1100,
+      "height": 1100,
+      "bytes": 46074
+    },
+    "room-graphite-550.webp": {
+      "sha256": "003cd24a195f9fedef77d599d332d073924a07112e55f0a00ee87e17354b7d5b",
+      "width": 550,
+      "height": 550,
+      "bytes": 10440
+    },
+    "room-fig-1100.webp": {
+      "sha256": "249e1585663cb723c656953207f46cb549aa49d834a7b7eefdb529e7d87badfb",
+      "width": 1100,
+      "height": 1100,
+      "bytes": 69812
+    },
+    "room-fig-550.webp": {
+      "sha256": "51cf69a54e80a22a31a46ba5f9527bc48eee60414eb0c1a5f06e164cf4f31029",
+      "width": 550,
+      "height": 550,
+      "bytes": 14218
+    },
+    "room-detail.webp": {
+      "sha256": "1ba853c88b6184acf97e0d1aa13db60f0022e80657c4773a943f921015e745b9",
+      "width": 1100,
+      "height": 786,
+      "bytes": 106036
+    }
+  },
+  "glb": {
+    "dot": {
+      "sha256": "4c9d24c03227e1a0f66bc18298e58557eb2659ac74ea969432e939518341ba8e",
+      "bytes": 4426468
+    },
+    "room": {
+      "sha256": "4ab1c225d053c08d45e0b80e2a3635b18c767336862bb65785cfe341e39917ab",
+      "bytes": 6257176
+    }
+  }
+}

@@ -1,17 +1,19 @@
 import { useEffect, useRef, useState } from 'react';
 import { finishName, finishes, productImage } from './catalog';
-import type { Finish } from './catalog';
+import type { Finish, Product } from './catalog';
 import { useReducedMotion } from './useReducedMotion';
 
 let openingPlayed = false;
-export function ProductGallery({ finish, product }: { finish: Finish; product: boolean }) {
+export function ProductGallery({ item, finish, product }: { item: Product; finish: Finish; product: boolean }) {
   const frame = useRef<HTMLDivElement>(null);
   const previousProduct = useRef(product);
+  const pendingEntry = useRef(product);
   const reduced = useReducedMotion();
   const [loaded, setLoaded] = useState<Finish[]>([]);
   const [failed, setFailed] = useState<Finish[]>([]);
   const [displayed, setDisplayed] = useState<Finish | null>(null);
   const pearlReady = loaded.includes('pearl');
+  const hasImage = displayed !== null;
 
   // Selection and shopping never depend on loading or animation completion.
   useEffect(() => {
@@ -39,9 +41,13 @@ export function ProductGallery({ finish, product }: { finish: Finish; product: b
     const element = frame.current;
     const changed = previousProduct.current !== product;
     previousProduct.current = product; // Preference changes must not replay navigation.
+    if (changed && product) pendingEntry.current = true;
     if (!element) return;
+    if (changed || reduced) element.getAnimations().forEach(animation => animation.cancel());
+    if (reduced) pendingEntry.current = false;
+    if (reduced || !pendingEntry.current || !product || !hasImage) return;
+    pendingEntry.current = false;
     element.getAnimations().forEach(animation => animation.cancel());
-    if (reduced || !changed || !product) return;
     const mobile = window.matchMedia('(max-width: 700px)').matches;
     // The phone's different composition uses a restrained destination reveal,
     // clipped to the gallery so new shopping controls remain available.
@@ -51,7 +57,7 @@ export function ProductGallery({ finish, product }: { finish: Finish; product: b
     { duration: mobile ? 220 : 340, easing: 'cubic-bezier(.22,1,.36,1)' });
     animation.id = 'sona-product-entry';
     return () => animation.cancel();
-  }, [product, reduced]);
+  }, [product, reduced, hasImage]);
 
   async function imageReady(image: HTMLImageElement, value: Finish) {
     try { await image.decode(); } catch { if (!image.naturalWidth) return; }
@@ -59,6 +65,8 @@ export function ProductGallery({ finish, product }: { finish: Finish; product: b
   }
 
   const pending = !loaded.includes(finish);
+  const productId = item.id;
+  const productName = item.name;
   const status = failed.includes(finish)
     ? `${finishName(finish)} preview unavailable. You can still choose this finish.`
     : `Loading ${finishName(finish)} preview…`;
@@ -66,11 +74,11 @@ export function ProductGallery({ finish, product }: { finish: Finish; product: b
   return <figure className={`product-gallery ${product ? 'product-gallery--detail' : ''}`}>
     <div className="product-gallery__images" ref={frame}>
       {finishes.map(item => <picture key={item.id} className="finish-image" data-finish={item.id} data-active={item.id === displayed}>
-        <source srcSet={`${productImage(item.id, 'small')} 550w, ${productImage(item.id)} 1100w`} sizes="(max-width: 700px) 100vw, 50vw" type="image/webp" />
-        <img src={productImage(item.id)} width="1100" height="1100" alt={item.id === displayed ? `Sona Arc in ${item.name}, resting on a plum studio plinth` : ''} aria-hidden={item.id !== displayed} fetchPriority={item.id === 'pearl' ? 'high' : 'low'} onLoad={event => void imageReady(event.currentTarget, item.id)} onError={() => setFailed(current => current.includes(item.id) ? current : [...current, item.id])} />
+        <source srcSet={`${productImage(productId, item.id, 'small')} 550w, ${productImage(productId, item.id)} 1100w`} sizes="(max-width: 700px) 100vw, 50vw" type="image/webp" />
+        <img src={productImage(productId, item.id)} width="1100" height="1100" alt={item.id === displayed ? `Sona ${productName} in ${item.name}, in a plum studio` : ''} aria-hidden={item.id !== displayed} fetchPriority={item.id === 'pearl' ? 'high' : 'low'} onLoad={event => void imageReady(event.currentTarget, item.id)} onError={() => setFailed(current => current.includes(item.id) ? current : [...current, item.id])} />
       </picture>)}
     </div>
     {pending && <p className={`image-status ${displayed ? 'image-status--retained' : ''}`} role="status">{status}{displayed && ` Showing ${finishName(displayed)}.`}</p>}
-    <figcaption><span>Arc / {finishName(displayed ?? finish)}</span><span>01 — Sona</span></figcaption>
+    <figcaption><span>{item.name} / {finishName(displayed ?? finish)}</span><span>{item.number} — Sona</span></figcaption>
   </figure>;
 }

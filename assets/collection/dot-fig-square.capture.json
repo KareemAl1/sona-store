@@ -1,0 +1,11 @@
+{
+  "product": "dot",
+  "finish": "fig",
+  "mode": "path",
+  "width": 1100,
+  "height": 1100,
+  "requestedSamples": 512,
+  "completedSamples": 512,
+  "capturedAt": "2026-09-29T15:09:19.828Z",
+  "browserVersion": "154.0.4258.37"
+}

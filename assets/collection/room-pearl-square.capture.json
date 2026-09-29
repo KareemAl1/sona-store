@@ -1,0 +1,11 @@
+{
+  "product": "room",
+  "finish": "pearl",
+  "mode": "path",
+  "width": 1100,
+  "height": 1100,
+  "requestedSamples": 512,
+  "completedSamples": 512,
+  "capturedAt": "2026-09-29T15:05:53.759Z",
+  "browserVersion": "154.0.4258.37"
+}

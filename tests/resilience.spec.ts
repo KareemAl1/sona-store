@@ -62,7 +62,7 @@ test('browser path history restores normal scrolling and route focus', async ({ 
 
 test('narrow, tablet, and enlarged text layouts keep shopping controls reachable', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'desktop', 'One responsive matrix is sufficient.');
-  mkdirSync('docs/screenshots', { recursive: true });
+  mkdirSync('docs/publication/screenshots', { recursive: true });
   for (const width of [320, 640, 768, 1440]) {
     await page.setViewportSize({ width, height: 900 });
     await page.goto('/products/arc?finish=graphite');
@@ -72,7 +72,7 @@ test('narrow, tablet, and enlarged text layouts keep shopping controls reachable
       await page.evaluate(() => document.fonts.ready);
       await page.waitForFunction(() => Array.from(document.querySelectorAll<HTMLImageElement>('.product-gallery img')).every(image => image.complete && image.naturalWidth > 0));
       await page.waitForTimeout(200);
-      await page.screenshot({ path: `docs/screenshots/responsive-${width}.png`, fullPage: true });
+      await page.screenshot({ path: `docs/publication/screenshots/responsive-${width}.png`, fullPage: true });
     }
     await page.locator('.purchase-block .button').click();
     await page.locator('.add-confirmation .text-button').click();
@@ -91,7 +91,7 @@ test('narrow, tablet, and enlarged text layouts keep shopping controls reachable
   await page.evaluate(() => document.fonts.ready);
   await page.waitForFunction(() => Array.from(document.querySelectorAll<HTMLImageElement>('.product-gallery img')).every(image => image.complete && image.naturalWidth > 0));
   await page.waitForTimeout(550);
-  await page.screenshot({ path: `docs/screenshots/text-200-percent${width === 390 ? '-phone' : ''}.png`, fullPage: true });
+  await page.screenshot({ path: `docs/publication/screenshots/text-200-percent${width === 390 ? '-phone' : ''}.png`, fullPage: true });
   await page.getByRole('radio', { name: 'Fig', exact: true }).check();
   await page.locator('.purchase-block .button').click();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);

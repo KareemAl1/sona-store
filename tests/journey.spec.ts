@@ -17,9 +17,9 @@ test('complete shopping journey, quantities, removal, and reload restoration', a
   await expect(bag).toBeVisible();
   await expect(bag.locator('.cart-line')).toHaveCount(2);
   await expect(bag.locator('.subtotal')).toContainText('$747');
-  await page.getByRole('button', { name: 'Increase Fig quantity', exact: true }).click();
+  await page.getByRole('button', { name: 'Increase Arc Fig quantity', exact: true }).click();
   await expect(bag.locator('.subtotal')).toContainText('$996');
-  await page.getByRole('button', { name: 'Decrease Fig quantity', exact: true }).click();
+  await page.getByRole('button', { name: 'Decrease Arc Fig quantity', exact: true }).click();
   await page.getByRole('button', { name: 'Remove Arc in Pearl', exact: true }).click();
   await expect(bag.locator('.subtotal')).toContainText('$498');
   await page.reload();
@@ -96,7 +96,7 @@ for (const boundary of ['getter', 'read', 'write'] as const) {
     await page.locator('.add-confirmation .text-button').click();
     await expect(page.getByRole('dialog').locator('.storage-notice')).toContainText('Your bag works for this visit');
     await expect(page.locator('.subtotal')).toContainText('$249');
-    await page.getByRole('button', { name: 'Increase Fig quantity' }).click();
+    await page.getByRole('button', { name: 'Increase Arc Fig quantity' }).click();
     await expect(page.locator('.subtotal')).toContainText('$498');
     expect(errors).toEqual([]);
   });
@@ -129,12 +129,12 @@ test('reduced motion preserves the complete path and live preference changes', a
 });
 
 test('actual screenshots, assets, and automated accessibility review', async ({ page }, testInfo) => {
-  mkdirSync('docs/screenshots', { recursive: true });
+  mkdirSync('docs/publication/screenshots', { recursive: true });
   const capture = async (name: string) => {
     await page.evaluate(() => document.fonts.ready);
     await page.locator('.product-gallery .finish-image[data-active=true] img').waitFor({ state: 'attached' });
     await page.waitForTimeout(550);
-    await page.screenshot({ path: `docs/screenshots/${testInfo.project.name}-${name}.png`, fullPage: !await page.getByRole('dialog').isVisible() });
+    await page.screenshot({ path: `docs/publication/screenshots/${testInfo.project.name}-${name}.png`, fullPage: !await page.getByRole('dialog').isVisible() });
   };
   await page.goto('/');
   await capture('home');

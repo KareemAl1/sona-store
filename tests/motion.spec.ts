@@ -50,7 +50,7 @@ test('rapid finish interruptions and cart input stay live during animation', asy
   const changedDuringEntry = await page.evaluate(() => {
     const dialog = document.querySelector('dialog')!;
     const running = dialog.getAnimations().some(animation => animation.playState === 'running');
-    dialog.querySelector<HTMLButtonElement>('[aria-label="Increase Fig quantity"]')!.click();
+    dialog.querySelector<HTMLButtonElement>('[aria-label="Increase Arc Fig quantity"]')!.click();
     return running;
   });
   expect(changedDuringEntry).toBe(true);
