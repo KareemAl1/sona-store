@@ -4,11 +4,14 @@
   "type": "module",
   "scripts": {
     "test:e2e": "playwright test",
-    "typecheck": "tsc -b",
     "test": "vitest run",
     "dev": "vite --host 127.0.0.1 --port 4173 --strictPort",
     "build": "tsc -b && vite build",
-    "preview": "vite preview --host 127.0.0.1 --port 4173 --strictPort"
+    "preview": "vite preview --host 127.0.0.1 --port 4173 --strictPort",
+    "typecheck": "tsc -b",
+    "preview:start": "node scripts/local-preview.mjs start",
+    "preview:status": "node scripts/local-preview.mjs status",
+    "preview:stop": "node scripts/local-preview.mjs stop"
   },
   "private": true,
   "dependencies": {

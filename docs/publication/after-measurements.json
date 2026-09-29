@@ -1,0 +1,42 @@
+[
+  {
+    "name": "desktop",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "zoom": 1,
+    "dpr": 1,
+    "width": 1440,
+    "galleryTop": 105,
+    "bodyText": "18px",
+    "navText": "16px",
+    "cart": {
+      "width": 560,
+      "buttonWidth": 48,
+      "quantityText": "18px",
+      "finishText": "16px"
+    },
+    "errors": []
+  },
+  {
+    "name": "phone",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "zoom": 1,
+    "dpr": 1,
+    "width": 390,
+    "galleryTop": 399.65625,
+    "bodyText": "17px",
+    "navText": "16px",
+    "cart": {
+      "width": 390,
+      "buttonWidth": 48,
+      "quantityText": "18px",
+      "finishText": "16px"
+    },
+    "errors": []
+  }
+]

@@ -1,40 +1,53 @@
 # Sona — The Listening Room
 
-An original audio storefront portfolio project. Milestone one covers the homepage, Arc in Pearl/Graphite/Fig, and a persistent local cart. Products and prices are fictional. There are no payments, orders, accounts, or backend services.
+An original React and TypeScript audio storefront portfolio project. Explore Arc headphones, Dot earbuds, and the Room speaker in Pearl, Graphite, or Fig; compare their forms and concept prices; build a persistent bag with multiple products and finishes. Products and prices are fictional. No payments, orders, accounts, or backend services.
 
-## Local development
+![Sona desktop collection](docs/publication/screenshots/after-desktop-home-full.png)
+
+## Run locally
 
 Requires Node.js 22.12+ and npm. From this folder:
 
 ```sh
 npm ci
-npm run dev
+npm run preview:start
+npm run preview:status
 ```
 
-The preview is fixed at `http://127.0.0.1:4173`. The fixed origin matters because browser storage belongs to an origin. Port 4173 is strict: Vite will report a conflict instead of silently selecting another origin.
+Open **http://127.0.0.1:4173/** in Chrome on this PC. The launcher starts a detached, loopback-only Vite development preview, verifies the page and all three product assets, and stores its process identity/log in ignored `.cache/`. `npm run preview:stop` stops only its verified process. If another process owns the port it leaves that process alone. The fixed origin keeps the bag's browser storage consistent. `npm run dev` is the foreground alternative.
 
 ```sh
+npm run typecheck
 npm run build
 npm test
 npm run test:e2e
 ```
 
-The browser tests use installed Microsoft Edge on Windows when available, otherwise Playwright's Chromium. On another machine run `npx playwright install chromium` once. Tests can reuse the running preview or start it automatically.
+The browser tests use installed Microsoft Edge on Windows when available, otherwise Playwright Chromium (`npx playwright install chromium` once on another machine). Tests reuse a running local preview or start it. No ESLint configuration is present; TypeScript and the production build are the existing static checks.
+
+## What works
+
+- Shared product-page architecture, aligned finish renders, distinct material macros, responsive shopping controls.
+- Comparison of zero to three products with native checkboxes and an accessible, horizontally scrollable table on narrow screens.
+- URL-driven products, finishes, comparison selection and bag state; reload, Back/Forward, route focus and normal scrolling.
+- Product-and-finish cart identity, quantity limits, removal, subtotal, empty state, validated restoration and usable in-memory shopping when storage fails.
+- Keyboard operation, native cart dialog, live feedback, image-loading fallbacks and reduced motion.
 
 ## Project guide
 
-- `src/App.tsx`: real routes, URL-driven finish and bag state, native dialog, editorial pages.
-- `src/ProductGallery.tsx`: aligned original renders and optional motion.
-- `src/cart/`: validated persistence, pure cart mutations, React state.
-- `src/styles.css`: responsive art direction, self-hosted fonts, reduced motion.
-- `assets/arc/`: original geometry, textures, GLB, render pipeline, and alignment evidence.
-- `tests/journey.spec.ts`: browser journey, history, keyboard, storage failure, accessibility, screenshots.
-- `tests/resilience.spec.ts`: rapid input, unavailable images, route focus, scroll restoration, narrow layouts, enlarged text.
-- `tests/motion.spec.ts`: delayed-image reveal, retained finish preview, interrupted motion, live reduced-motion changes, and deliberate backdrop dismissal.
-- `docs/engineering.md`: decisions and tradeoffs.
-- `docs/refinement.md`: current visual refinement results, comparison captures, and limitations.
-- `docs/verification.md`: historical initial milestone verification.
-- `docs/refinement/compare.html`: desktop and phone before/after screenshots from actual browsers.
-- `docs/screenshots/`: browser captures from the implemented UI.
+- `src/catalog.ts`: typed fictional catalog and integer-cent prices.
+- `src/App.tsx`, `src/Collection.tsx`: shared product view, editorial collection, comparison and route/modal behavior.
+- `src/ProductGallery.tsx`: image decode, aligned finish layers, interruptible motion.
+- `src/cart/`: pure cart reducer and validated persistence behind one React provider.
+- `assets/arc/`, `assets/collection/`: original editable geometry, render sources, GLBs, provenance and alignment checks. Three.js stays out of the storefront runtime.
+- `tests/`: shopping, collection, history, accessibility, storage and motion browser regressions.
+- [Engineering and interview notes](docs/engineering.md).
+- [Current verification and publication handoff](docs/publication.md).
+- [Desktop and phone before/after gallery](docs/publication/compare.html).
+- `docs/refinement.md`, `docs/verification.md`: preserved historical milestone evidence.
 
-The project is local only. No remote repository or hosting has been configured. Local commits use KareemAl1, verified before committing. Other projects are independent and are not imported or modified.
+## Publication status
+
+Ready for local review. No Sona remote, push, deployment, or public profile edit was made. `vercel.json` supplies a Vite build and SPA fallback for a future reviewed deployment; other static hosts must likewise serve `index.html` for product/comparison routes. There is no production domain yet. Self-hosted font notices are retained in `public/fonts`; original product assets have documented provenance.
+
+Local commits use KareemAl1. Other projects remain independent.

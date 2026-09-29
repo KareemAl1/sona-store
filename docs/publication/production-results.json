@@ -1,0 +1,18 @@
+{
+  "browser": "154.0.8037.58",
+  "source": "Vite production preview of dist on loopback4174",
+  "urls": [
+    "http://127.0.0.1:4174/products/arc?finish=graphite",
+    "http://127.0.0.1:4174/products/dot?finish=graphite",
+    "http://127.0.0.1:4174/products/room?finish=graphite",
+    "http://127.0.0.1:4174/compare?items=dot,room",
+    "http://127.0.0.1:4174/products/unknown"
+  ],
+  "scripts": [
+    "/assets/index-PHzzOCje.js"
+  ],
+  "cart": "3 Graphite products restored; $747",
+  "reducedMotion": true,
+  "errors": [],
+  "failures": []
+}

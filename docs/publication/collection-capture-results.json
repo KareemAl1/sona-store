@@ -1,0 +1,42 @@
+[
+  {
+    "name": "desktop",
+    "browser": "154.0.8037.58",
+    "scale": 1,
+    "width": 1440,
+    "scrollWidth": 1425,
+    "errors": [],
+    "failures": [],
+    "emptyBagRecovery": "Room stays on Room"
+  },
+  {
+    "name": "phone",
+    "browser": "154.0.8037.58",
+    "scale": 1,
+    "width": 390,
+    "scrollWidth": 390,
+    "errors": [],
+    "failures": [],
+    "emptyBagRecovery": "Room stays on Room"
+  },
+  {
+    "name": "tablet",
+    "browser": "154.0.8037.58",
+    "scale": 1,
+    "width": 768,
+    "scrollWidth": 753,
+    "errors": [],
+    "failures": [],
+    "emptyBagRecovery": "Room stays on Room"
+  },
+  {
+    "name": "narrow",
+    "browser": "154.0.8037.58",
+    "scale": 1,
+    "width": 320,
+    "scrollWidth": 320,
+    "errors": [],
+    "failures": [],
+    "emptyBagRecovery": "Room stays on Room"
+  }
+]
