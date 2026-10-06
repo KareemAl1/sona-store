@@ -4,7 +4,28 @@ Sona was published on October 6, 2026: [live demo](https://sona-store.vercel.app
 
 Sona includes three fictional products, three finishes each, comparison and a mixed-product persistent bag. The September 29 collection review below remains dated historical evidence. That local milestone did not publish a repository or deployment; publication followed on October 6.
 
-## October 6, 2026 publication checks
+## October 6, 2026 color and motion pass
+
+The second release adds a saturated fig opening, warm chartreuse shopping actions, a rose collection and a deep-plum material section/cart header. Larger serif product indices strengthen the asymmetric collection composition. Original renders, product data, finish/cart URL state and persistence logic are unchanged.
+
+The title, decoded hero image and gallery caption have distinct entrances; controls remain visible and immediately usable. `useEditorialMotion.ts` owns short section reveals and native-scroll progress, uses one scheduled frame for progress, and never writes React state on scroll. Its observers and Web Animations clean up on route/preference changes; focus cancels motion around the active control. CSS supplies hover, swatch, count and caption feedback. The existing gallery still owns loading, aligned finish transitions and interrupted selections. [Motion timings and architecture](engineering.md) describe the implementation.
+
+| Check | Actual result |
+| --- | --- |
+| Production build | TypeScript and Vite passed; 30 modules; JS 289.58 kB / 91.43 kB gzip, CSS 30.10 kB / 6.77 kB gzip |
+| Unit tests | 18 passed on Node 22.12.0 / npm 10.9.0 |
+| Focused local browser layout review | Hero, collection, product and cart inspected at 1280px desktop; at 390×844, the hero had no horizontal overflow and the product appeared within the first viewport |
+| Rapid finish and bag journey | Dot Graphite → Fig followed immediately by Add recorded Fig; quantity two survived reload; decrement and removal reached the empty state |
+| Keyboard dialog | Shift+Tab/Tab wrapped between Close and Continue exploring; Escape closed the bag |
+| Static motion/contrast review | Reveals begin visible, cancel around focused elements and on preference/route cleanup; scrolling uses one scheduled frame. Checked main text/background pairs exceed 4.5:1 |
+
+Hosted verification of [`892344d`](https://github.com/KareemAl1/sona-store/commit/892344d2b33b9024b3af14aacae292a655584400): its automatic Git-linked Vercel deployment reached Ready, the public homepage was checked at 1280×900 and 390×844 without horizontal overflow, the mobile Arc/Fig Add-to-bag and modal flow passed, and the updated captures below were taken from the live deployment.
+
+Updated captures: [desktop](publication/screenshots/color-motion-desktop.jpg) · [phone viewport](publication/screenshots/color-motion-phone.jpg). The `live-desktop.jpg` and `live-phone.jpg` images below preserve the first release from earlier the same day.
+
+These are focused browser checks, not a fresh full Playwright or axe run. The active browser could not change the system reduced-motion preference, so reduced-motion rules were statically reviewed and no new live preference-toggle result is claimed. No physical-phone, Safari, frame-rate or network-performance measurement was made.
+
+## October 6, 2026 first publication checks
 
 | Check | Result |
 | --- | --- |
@@ -19,7 +40,7 @@ The hosted browser smoke passed on [sona-store.vercel.app](https://sona-store.ve
 
 The hosted desktop homepage and the Room product page at a 390×844 phone viewport were inspected for layout and readability. Actual captures: [live desktop](publication/screenshots/live-desktop.jpg) · [live phone](publication/screenshots/live-phone.jpg).
 
-The older screenshots remain the actual September 29 local browser captures; the two `live-*.jpg` captures are from October 6. The full browser regression suite was not rerun for publication. The hosted smoke did not repeat storage-denial testing or add a separate standalone Chrome pass, physical-device or Safari testing, frame-rate measurement, or repeatable network-performance measurement. The 18 unit tests cover cart validation and storage failure boundaries; the broader browser evidence below retains its original date.
+The older screenshots remain the actual September 29 local browser captures; the two `live-*.jpg` captures document the October 6 first release before the color and motion update. The full browser regression suite was not rerun for publication. The hosted smoke did not repeat storage-denial testing or add a separate standalone Chrome pass, physical-device or Safari testing, frame-rate measurement, or repeatable network-performance measurement. The 18 unit tests cover cart validation and storage failure boundaries; the broader browser evidence below retains its original date.
 
 ## Implemented scope
 

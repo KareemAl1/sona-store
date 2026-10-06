@@ -4,17 +4,17 @@ A personal frontend portfolio project: an original audio storefront built with R
 
 [Live demo](https://sona-store.vercel.app) · [GitHub repository](https://github.com/KareemAl1/sona-store)
 
-![Sona desktop homepage, with pearl Arc headphones in the original plum studio](docs/publication/screenshots/after-desktop-home.png)
+![Sona desktop homepage with a fig color field, warm chartreuse accents and original Arc product render](docs/publication/screenshots/color-motion-desktop.jpg)
 
 <p>
-  <img src="docs/publication/screenshots/after-phone-home.png" width="260" alt="Sona phone homepage with the responsive introduction and Arc product image" />
-  <img src="docs/publication/screenshots/after-phone-mixed-cart.png" width="260" alt="Sona phone bag containing Arc, Dot and Room, with individual quantity and removal controls" />
+  <img src="docs/publication/screenshots/color-motion-phone.jpg" width="260" alt="Sona color and motion update in a phone viewport" />
 </p>
 
-These are actual local browser captures from the September 29 collection review. [Full collection](docs/publication/screenshots/after-desktop-home-full.png) · [Comparison](docs/publication/screenshots/after-desktop-comparison.png) · [Phone product page](docs/publication/screenshots/after-phone-dot.png)
+The current views show the October 6 color and motion update. Historical September 29 captures remain available: [full collection](docs/publication/screenshots/after-desktop-home-full.png) · [comparison](docs/publication/screenshots/after-desktop-comparison.png) · [phone product page](docs/publication/screenshots/after-phone-dot.png).
 
 ## Working experience
 
+- **Color and motion:** fig and plum color fields, warm chartreuse actions, large serif product indices, coordinated title/product/caption entrances, low-travel section reveals and brief hover feedback. The original product renders remain intact.
 - **Three products, three finishes:** shared product pages, Pearl/Graphite/Fig selection, aligned imagery and dedicated material close-ups.
 - **Comparison:** native checkboxes select zero to three products; a semantic comparison table remains keyboard-scrollable on narrow screens.
 - **Persistent bag:** variants merge by product and finish, with quantities from 1–99, removal, subtotal and empty states. Validated local storage restores the bag; blocked storage leaves a usable in-memory bag with an explanation.
@@ -55,7 +55,9 @@ The browser suite uses installed Microsoft Edge on Windows when available; elsew
 
 | Evidence | Actual result |
 | --- | --- |
-| October 6, 2026 publication build | TypeScript and Vite passed; 29 modules, application JS 287.39 kB / 90.75 kB gzip |
+| October 6, 2026 color/motion build | TypeScript and Vite passed; 30 modules, JS 289.58 kB / 91.43 kB gzip; CSS 30.10 kB / 6.77 kB gzip |
+| October 6, 2026 color/motion local browser check | 1280px desktop and 390×844 phone layouts; rapid finish/Add, bag quantity/reload/removal, Escape and keyboard focus wrap passed |
+| October 6, 2026 first publication build | TypeScript and Vite passed; 29 modules, application JS 287.39 kB / 90.75 kB gzip |
 | October 6, 2026 unit rerun | 18 tests passed on Node 22.12.0 / npm 10.9.0 |
 | October 6, 2026 dependency audit | Zero reported vulnerabilities after compatible development-tool patches |
 | October 6, 2026 hosted browser smoke | Product/finish navigation, direct product and comparison routes, mixed bag, quantity/removal, reload restoration and Back/Forward passed; 390×844 phone viewport inspected |
@@ -65,9 +67,9 @@ The browser suite uses installed Microsoft Edge on Windows when available; elsew
 | September 29, 2026 full browser suite | 53 passed, 3 intentional skips; installed Edge, desktop and phone emulation |
 | September 29, 2026 visual and production review | Chrome screenshots at 1440, 768, 390 and 320px; built-asset deep routes, mixed-bag reload and reduced motion passed |
 
-The publication checks preserve the earlier screenshots and browser evidence; the full browser suite was last run on September 29. Bundle size is a build measurement, not a loading-performance score. Phone emulation is not physical-device or Safari verification. Automated axe checks supplement keyboard testing and do not establish complete accessibility conformance. Network/device performance remains unmeasured.
+The full browser suite was last run on September 29. The October 6 visual pass reran the build and all 18 unit tests, then used focused browser checks; its reduced-motion cancellation rules were statically reviewed, without a fresh browser preference-toggle test. Bundle size is a build measurement, not a loading-performance score. Phone emulation is not physical-device or Safari verification. Automated axe checks supplement keyboard testing and do not establish complete accessibility conformance. Network/device performance remains unmeasured.
 
-October 6 hosted captures: [desktop homepage](docs/publication/screenshots/live-desktop.jpg) · [phone Room product page](docs/publication/screenshots/live-phone.jpg). On the live site, two Arc/Fig items restored after reload at $498; adding Dot produced a $647 mixed bag, and removing all items returned the empty state. This focused hosted check does not replace the historical full browser suite.
+October 6 first-release hosted captures (before the color and motion update): [desktop homepage](docs/publication/screenshots/live-desktop.jpg) · [phone Room product page](docs/publication/screenshots/live-phone.jpg). On the live site, two Arc/Fig items restored after reload at $498; adding Dot produced a $647 mixed bag, and removing all items returned the empty state. This focused hosted check does not replace the historical full browser suite.
 
 [Detailed collection verification](docs/publication.md) · [Before/after gallery](docs/publication/compare.html) · [Historical first milestone](docs/verification.md)
 
