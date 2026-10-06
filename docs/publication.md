@@ -1,6 +1,25 @@
-# Collection milestone — publication review
+# Sona — publication and verification
 
-Local review recorded on 2026-09-29. Sona now has three fictional products, three finishes each, comparison and a mixed-product persistent bag. No remote repository, deployment or public profile edit was made. The existing Arc visual refinement is preserved; this milestone extends it.
+Sona was published on October 6, 2026: [live demo](https://sona-store.vercel.app) · [public repository](https://github.com/KareemAl1/sona-store). Vercel is linked to the repository's `main` branch in the `kareems-projects-bc520863` workspace.
+
+Sona includes three fictional products, three finishes each, comparison and a mixed-product persistent bag. The September 29 collection review below remains dated historical evidence. That local milestone did not publish a repository or deployment; publication followed on October 6.
+
+## October 6, 2026 publication checks
+
+| Check | Result |
+| --- | --- |
+| Local production build | TypeScript and Vite passed; 29 modules; JavaScript 287.39 kB / 90.75 kB gzip, CSS 21.38 kB / 5.16 kB gzip |
+| Cart model tests | 18 passed on Node 22.12.0 / npm 10.9.0 |
+| Dependency audit | `npm audit --json`: zero reported vulnerabilities after `sharp` 0.35.4 → 0.35.5 and transitive `source-map-js` 1.2.1 → 1.2.2; build and all 18 unit tests passed again |
+| Asset compatibility after the Sharp patch | Both export scripts passed `--check`; all 21 served WebPs reproduced byte-for-byte without changing assets |
+| Repository audit | 225 tracked paths and six reachable commits reviewed before publication; no common secret markers, credential assignments or unrelated private files found |
+| Hosting | Public Vercel deployment with Vite output from `dist/` and the configured SPA fallback |
+
+The hosted browser smoke passed on [sona-store.vercel.app](https://sona-store.vercel.app): homepage → Discover Arc → Fig updated the URL and product render; Add produced $249, and increasing to two produced $498. Reload restored both the quantity and open bag; Escape closed the modal. Direct Dot/Graphite and Room/Pearl routes loaded. Adding one Dot to the two Arc items produced a $647 mixed bag; decrement and removal worked through the empty state. `/compare?items=dot,room` loaded the selected comparison table, and Back/Forward restored routes.
+
+The hosted desktop homepage and the Room product page at a 390×844 phone viewport were inspected for layout and readability. Actual captures: [live desktop](publication/screenshots/live-desktop.jpg) · [live phone](publication/screenshots/live-phone.jpg).
+
+The older screenshots remain the actual September 29 local browser captures; the two `live-*.jpg` captures are from October 6. The full browser regression suite was not rerun for publication. The hosted smoke did not repeat storage-denial testing or add a separate standalone Chrome pass, physical-device or Safari testing, frame-rate measurement, or repeatable network-performance measurement. The 18 unit tests cover cart validation and storage failure boundaries; the broader browser evidence below retains its original date.
 
 ## Implemented scope
 
@@ -11,7 +30,7 @@ Local review recorded on 2026-09-29. Sona now has three fictional products, thre
 - Product gallery state resets by product ID, preventing a previous product's photo from being mislabeled during loading. Finish changes and Add remain immediate while images decode or transitions run. Cart thumbnails preserve each complete square composition.
 - The collection anchor and cart share history without resetting shopping controls or stealing the bag opener's focus.
 
-## Actual verification
+## September 29, 2026 collection verification
 
 | Check | Result |
 | --- | --- |
@@ -41,9 +60,9 @@ The visual pass preserved **18px** product body text, **16px** navigation/finish
 3. **Input and transitions:** handlers read the live URL for rapid selections. Loading and animation never gate Add, quantity or navigation. The gallery owns/cancels its animation and remounts per product; reduced motion removes cosmetic movement.
 4. **Concrete tradeoff:** authored offline renders preserve exact finish alignment without shipping a 3D engine. A review also caught collection-anchor history overriding scroll/focus restoration; navigation and modal history are now distinguished and regression-tested.
 
-## Publication handoff
+## Deployment and local preview
 
-The production output is `dist/`. `vercel.json` is local preparation only: it declares Vite and the SPA fallback needed for deep product routes, following [Vercel's Vite documentation](https://vercel.com/docs/frameworks/frontend/vite). The production smoke verifies Vite's local built output; no hosted routing, HTTPS headers or deployed domain has been tested. Review the repository and hosting destination before authorizing publication. No account linkage is embedded.
+The production output is `dist/`. `vercel.json` declares Vite, `npm run build`, and the SPA fallback needed for direct product and comparison routes. The Git-linked Vercel project deploys `main` to [sona-store.vercel.app](https://sona-store.vercel.app). No environment variables or service credentials are required. The September 29 production smoke above checked Vite's local built output; it is distinct from the October 6 hosted checks.
 
 The local preview stays at **http://127.0.0.1:4173/**. From this repository, `npm run preview:start` restarts it after a reboot; `preview:status` checks it and `preview:stop` stops only its matched process. This is a development preview for local review. `.cache/`, dependencies, build output and browser reports remain ignored.
 
@@ -51,8 +70,7 @@ There is no ESLint setup in Sona; existing TypeScript/build checks were used ins
 
 ## Small future backlog
 
-1. After approval, publish and verify real hosted deep links, HTTPS behavior and public profile URLs.
-2. Test the finished journey on a physical phone and current Safari with keyboard/assistive-technology review.
-3. Measure the hosted site under a repeatable mobile network/device profile before proposing performance changes.
+1. Test the finished journey on a physical phone and current Safari with keyboard/assistive-technology review.
+2. Measure the hosted site under a repeatable mobile network/device profile before proposing performance changes.
 
 Checkout, authentication, analytics and more products are outside this milestone.

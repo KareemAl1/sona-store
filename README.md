@@ -2,6 +2,8 @@
 
 A personal frontend portfolio project: an original audio storefront built with React and TypeScript. Explore Arc headphones, Dot earbuds and the Room speaker, compare the collection, and build a bag across products and finishes. All products and prices are fictional; there are no payments, orders, accounts or backend services.
 
+[Live demo](https://sona-store.vercel.app) · [GitHub repository](https://github.com/KareemAl1/sona-store)
+
 ![Sona desktop homepage, with pearl Arc headphones in the original plum studio](docs/publication/screenshots/after-desktop-home.png)
 
 <p>
@@ -53,13 +55,19 @@ The browser suite uses installed Microsoft Edge on Windows when available; elsew
 
 | Evidence | Actual result |
 | --- | --- |
+| October 6, 2026 publication build | TypeScript and Vite passed; 29 modules, application JS 287.39 kB / 90.75 kB gzip |
+| October 6, 2026 unit rerun | 18 tests passed on Node 22.12.0 / npm 10.9.0 |
+| October 6, 2026 dependency audit | Zero reported vulnerabilities after compatible development-tool patches |
+| October 6, 2026 hosted browser smoke | Product/finish navigation, direct product and comparison routes, mixed bag, quantity/removal, reload restoration and Back/Forward passed; 390×844 phone viewport inspected |
 | October 1, 2026 production build | TypeScript and Vite passed; 29 modules, application JS 287.39 kB / 90.75 kB gzip |
 | October 1, 2026 unit rerun | 18 tests passed on Node 24.11.1 / npm 11.6.2 |
 | October 1, 2026 focused local browser check | In-app browser: homepage → Arc → Fig → bag, quantity 2 / $498 restored after reload, removal and empty state; no console errors |
 | September 29, 2026 full browser suite | 53 passed, 3 intentional skips; installed Edge, desktop and phone emulation |
 | September 29, 2026 visual and production review | Chrome screenshots at 1440, 768, 390 and 320px; built-asset deep routes, mixed-bag reload and reduced motion passed |
 
-The current documentation pass preserves the earlier screenshots and browser evidence; it does not claim a new full browser run. Bundle size is a build measurement, not a loading-performance score. Phone emulation is not physical-device or Safari verification. Automated axe checks supplement keyboard testing and do not establish complete accessibility conformance. Hosted routing, HTTPS behavior and network/device performance remain unverified.
+The publication checks preserve the earlier screenshots and browser evidence; the full browser suite was last run on September 29. Bundle size is a build measurement, not a loading-performance score. Phone emulation is not physical-device or Safari verification. Automated axe checks supplement keyboard testing and do not establish complete accessibility conformance. Network/device performance remains unmeasured.
+
+October 6 hosted captures: [desktop homepage](docs/publication/screenshots/live-desktop.jpg) · [phone Room product page](docs/publication/screenshots/live-phone.jpg). On the live site, two Arc/Fig items restored after reload at $498; adding Dot produced a $647 mixed bag, and removing all items returned the empty state. This focused hosted check does not replace the historical full browser suite.
 
 [Detailed collection verification](docs/publication.md) · [Before/after gallery](docs/publication/compare.html) · [Historical first milestone](docs/verification.md)
 
@@ -67,4 +75,4 @@ The current documentation pass preserves the earlier screenshots and browser evi
 
 Key source: `src/catalog.ts`, `src/App.tsx`, `src/Collection.tsx`, `src/ProductGallery.tsx` and `src/cart/`. Original editable geometry, render sources and provenance remain in `assets/arc/` and `assets/collection/`; browser regressions live in `tests/`.
 
-The project remains local: no Git remote, deployment or production domain is configured. `vercel.json` is preparation for a reviewed Vite deployment with SPA routing. Other static hosts must also serve `index.html` for direct product/comparison routes. Product images are original, font license notices are retained, and no testimonials or audio-performance claims are presented.
+Published on October 6, 2026: [source on GitHub](https://github.com/KareemAl1/sona-store) and [live on Vercel](https://sona-store.vercel.app). Vercel is linked to the repository's `main` branch. `vercel.json` builds with `npm run build`, serves `dist/`, and provides the SPA fallback for direct product/comparison routes. No service credentials or environment variables are required. Product images are original, font license notices are retained, and no testimonials or audio-performance claims are presented.
