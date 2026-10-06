@@ -7,6 +7,7 @@ import { variantKey } from './cart/model';
 import { ProductGallery } from './ProductGallery';
 import { useBagInspection } from './useBagInspection';
 import { Collection, ComparisonPage } from './Collection';
+import { useEditorialMotion } from './useEditorialMotion';
 
 const scrollPositions = new Map<string, number>();
 const overlayKeys = new Set<string>();
@@ -15,6 +16,7 @@ export function App() {
   useBagInspection();
   const location = useLocation();
   const navigationType = useNavigationType();
+  const editorial = useEditorialMotion(location.pathname);
   const navigate = useNavigate();
   const [search, setSearch] = useSearchParams();
   const product = productFromPath(location.pathname);
@@ -168,24 +170,25 @@ export function App() {
   const notice = confirmation && <div className="add-confirmation"><span>{confirmation.full ? 'Maximum quantity reached.' : `${products[confirmation.productId].name} in ${finishName(confirmation.finish)} added.`}</span><button className="text-button" onClick={openBag}>View bag</button></div>;
 
   return <>
+    <div className="reading-progress" ref={editorial.progress} aria-hidden="true" />
     <a className="skip-link" href="#main">Skip to content</a>
     <header className="site-header"><div className="site-header__inner">
       <Link className="wordmark" to="/" aria-label="Sona home">sona</Link>
-      <nav aria-label="Main navigation"><Link className="shop-link" to="/#collection" aria-current={home ? 'page' : undefined}>Collection</Link><Link className="shop-link" to="/compare" aria-current={comparing ? 'page' : undefined}>Compare</Link><button className="bag-toggle" onClick={openBag} aria-label={`Open bag, ${cart.count} ${cart.count === 1 ? 'item' : 'items'}`} aria-haspopup="dialog">Bag <span aria-hidden="true">({cart.count})</span></button></nav>
+      <nav aria-label="Main navigation"><Link className="shop-link" to="/#collection" aria-current={home ? 'page' : undefined}>Collection</Link><Link className="shop-link" to="/compare" aria-current={comparing ? 'page' : undefined}>Compare</Link><button className="bag-toggle" onClick={openBag} aria-label={`Open bag, ${cart.count} ${cart.count === 1 ? 'item' : 'items'}`} aria-haspopup="dialog">Bag <span key={cart.count} aria-hidden="true">({cart.count})</span></button></nav>
     </div></header>
 
     {product && <div className="mobile-purchase"><div><span>{item.name} / {finishName(finish)}</span><span>{money(item.price)} <span className="price-note">concept</span></span></div><div className="mobile-purchase__actions">{confirmation && <button className="text-button" onClick={openBag}>View bag</button>}<button className="button button--compact" onClick={addToBag}>{confirmation ? 'Add another' : 'Add to bag'}</button></div></div>}
 
-    <main id="main" className="site-main" tabIndex={-1}>
+    <main id="main" className="site-main" ref={editorial.surface} tabIndex={-1}>
       {home || product ? <>
         <section className={`hero ${product ? 'hero--product' : ''}`} aria-label={product ? `Shop ${item.name}` : 'Introducing Arc'}>
           <div className="hero-copy">
             {home ? <>
               <p className="eyebrow">The Sona collection</p>
-              <h1 ref={heading} tabIndex={-1}>Make room<br />for <em>listening.</em></h1>
+              <h1 ref={heading} tabIndex={-1} data-reveal="title">Make room<br />for <em>listening.</em></h1>
               <p className="hero-description">Three objects. One listening room.</p>
               <div className="hero-shopping"><Link className="button" to="/products/arc?finish=pearl">Discover Arc <span aria-hidden="true">↗</span></Link><p className="concept-price"><span>{money(arc.price)}</span><span>Concept price</span></p></div>
-              <div className="hero-footer"><span>Sona — The Listening Room</span><span>Shape, texture<br />and a little space.</span></div>
+              <div className="hero-footer"><span>01 — Arc<br />An original listening object.</span><Link to="/#collection">Meet the collection <span aria-hidden="true">↓</span></Link></div>
             </> : <>
               <Link className="back-link" to="/#collection">← Back to the collection</Link>
               <nav className="product-navigation" aria-label="Products">{productIds.map(id => <Link key={id} to={productUrl(id)} aria-current={item.id === id ? 'page' : undefined}>{products[id].name}</Link>)}</nav>
@@ -200,7 +203,7 @@ export function App() {
           <ProductGallery key={item.id} item={item} finish={finish} product={!!product} />
         </section>
         {home && <Collection />}
-        <section className="material-story" aria-labelledby="material-heading"><div><p className="eyebrow">The details</p><h2 id="material-heading">{item.id === 'arc' ? <>A closer look<br />at the everyday.</> : item.detailTitle}</h2><p>{item.detailCopy}</p><p className="secondary-note">Original fictional product study.</p></div><figure><img src={`/images/${item.id}-detail.webp`} width="1100" height="786" loading="lazy" alt={item.detailAlt} /><figcaption><span>{item.name} / Material study</span><span>Sona</span></figcaption></figure></section>
+        <section className="material-story" aria-labelledby="material-heading"><div data-reveal="story"><p className="eyebrow">The details</p><h2 id="material-heading">{item.id === 'arc' ? <>A closer look<br />at the everyday.</> : item.detailTitle}</h2><p>{item.detailCopy}</p><p className="secondary-note">Original fictional product study.</p></div><figure data-reveal="image"><img src={`/images/${item.id}-detail.webp`} width="1100" height="786" loading="lazy" alt={item.detailAlt} /><figcaption><span>{item.name} / Material study</span><span>Sona</span></figcaption></figure></section>
         {product && <section className="design-details"><button aria-expanded={detailsOpen} aria-controls="design-details-content" onClick={() => setDetailsOpen(!detailsOpen)}><span>Design details</span><span aria-hidden="true">{detailsOpen ? '−' : '+'}</span></button><div id="design-details-content" hidden={!detailsOpen}><p>{item.design} Choose Pearl, Graphite, or Fig; each finish shares the same original form.</p><p>This is a fictional design study. The price is illustrative; no audio performance, battery life, or manufacturing claims are made.</p></div></section>}
       </> : comparing ? <ComparisonPage headingRef={heading} /> : <section className="not-found"><p className="eyebrow">Page not found</p><h1 ref={heading} tabIndex={-1}>A little off track.</h1><p>The collection is a good place to start.</p><Link className="button" to="/#collection">Explore the collection <span aria-hidden="true">↗</span></Link></section>}
     </main>

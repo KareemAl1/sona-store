@@ -13,12 +13,12 @@ function CollectionImage({ id }: { id: ProductId }) {
 
 export function Collection() {
   return <section className="collection" id="collection" aria-labelledby="collection-heading" tabIndex={-1}>
-    <div className="collection-heading"><div><p className="eyebrow">01 / 02 / 03</p><h2 id="collection-heading">Three forms.<br />One point of view.</h2></div><div className="collection-intro"><p>Over-ear, in-ear, and at home. Find a form for your everyday.</p><nav aria-label="Explore the collection">{productIds.map(id => <Link key={id} to={productUrl(id)}>{products[id].name} ↗</Link>)}</nav></div></div>
+    <div className="collection-heading" data-reveal="story"><div><p className="eyebrow">01 / 02 / 03</p><h2 id="collection-heading">Three forms.<br />One point of view.</h2></div><div className="collection-intro"><p>Over-ear, in-ear, and at home. Find a form for your everyday.</p><nav aria-label="Explore the collection">{productIds.map(id => <Link key={id} to={productUrl(id)}>{products[id].name} ↗</Link>)}</nav></div></div>
     <div className="collection-spread">{(['dot', 'room'] as const).map(id => {
       const item = products[id];
       return <article key={id} className={`collection-piece collection-piece--${id}`}>
-        <Link className="collection-image-link" to={productUrl(id)} aria-label={`Explore ${item.name}`}><CollectionImage id={id} /></Link>
-        <div className="collection-caption"><p className="eyebrow">{item.number} / {item.type}</p><div className="collection-name"><h3><Link to={productUrl(id)}>{item.name}</Link></h3><p>{money(item.price)}<span>Concept price</span></p></div><p className="collection-description">{item.introduction}</p><Link className="collection-action" to={productUrl(id)}>Discover {item.name} <span aria-hidden="true">↗</span></Link></div>
+        <Link data-reveal="image" className="collection-image-link" to={productUrl(id)} aria-label={`Explore ${item.name}`}><CollectionImage id={id} /></Link>
+        <div className="collection-caption"><div className="collection-caption__index"><span aria-hidden="true">{item.number}</span><p className="eyebrow">{item.type}</p></div><div className="collection-name"><h3><Link to={productUrl(id)}>{item.name}</Link></h3><p>{money(item.price)}<span>Concept price</span></p></div><p className="collection-description">{item.introduction}</p><Link className="collection-action" to={productUrl(id)}>Discover {item.name} <span aria-hidden="true">↗</span></Link></div>
       </article>;
     })}</div>
     <div className="collection-compare"><p>Find your place in the collection.</p><Link to="/compare" className="button">Compare the three <span aria-hidden="true">↗</span></Link></div>

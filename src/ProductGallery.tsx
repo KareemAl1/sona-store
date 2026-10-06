@@ -29,9 +29,9 @@ export function ProductGallery({ item, finish, product }: { item: Product; finis
       openingPlayed = true;
       const mobile = window.matchMedia('(max-width: 700px)').matches;
       animation = element.animate([
-        { transform: `translateY(${mobile ? 6 : 10}px) scale(${mobile ? 1.015 : 1.025})` },
+        { transform: `translateY(${mobile ? 10 : 16}px) scale(${mobile ? 1.035 : 1.065})` },
         { transform: 'none' },
-      ], { duration: mobile ? 360 : 520, easing: 'cubic-bezier(.22,1,.36,1)' });
+      ], { duration: mobile ? 640 : 860, easing: 'cubic-bezier(.22,1,.36,1)' });
       animation.id = 'sona-opening';
     });
     return () => { cancelAnimationFrame(request); animation?.cancel(); };
@@ -53,8 +53,8 @@ export function ProductGallery({ item, finish, product }: { item: Product; finis
     // clipped to the gallery so new shopping controls remain available.
     const animation = element.animate(mobile
       ? [{ opacity: .82, transform: 'translateY(6px)' }, { opacity: 1, transform: 'none' }]
-      : [{ transform: 'scale(1.035)' }, { transform: 'none' }],
-    { duration: mobile ? 220 : 340, easing: 'cubic-bezier(.22,1,.36,1)' });
+      : [{ transform: 'scale(1.045)' }, { transform: 'none' }],
+    { duration: mobile ? 320 : 520, easing: 'cubic-bezier(.22,1,.36,1)' });
     animation.id = 'sona-product-entry';
     return () => animation.cancel();
   }, [product, reduced, hasImage]);
