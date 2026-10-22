@@ -201,13 +201,13 @@ test('a failed Room image leaves the correct product and price available to shop
 });
 
 test('new product and comparison states have actual screenshots and no automated accessibility violations', async ({ page }, testInfo) => {
-  mkdirSync('docs/publication/screenshots', { recursive: true });
+  mkdirSync('test-results/screenshots', { recursive: true });
   await page.emulateMedia({ reducedMotion: 'reduce' });
   for (const id of ['dot', 'room']) {
     await page.goto(`/products/${id}?finish=fig`);
     await expect(page.locator('.finish-image[data-active=true] img')).toHaveAttribute('src', `/images/${id}-fig-1100.webp`);
     await page.evaluate(() => document.fonts.ready);
-    await page.screenshot({ path: `docs/publication/screenshots/${testInfo.project.name}-${id}-fig.png`, fullPage: true });
+    await page.screenshot({ path: `test-results/screenshots/${testInfo.project.name}-${id}-fig.png`, fullPage: true });
     expect((await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze()).violations).toEqual([]);
   }
   await page.goto('/compare');
@@ -216,7 +216,7 @@ test('new product and comparison states have actual screenshots and no automated
   await page.waitForFunction(() => [...document.querySelectorAll<HTMLImageElement>('.comparison-table img')].every(image => image.complete && image.naturalWidth > 0));
   await comparison(page).evaluate(element => { element.scrollLeft = 0; });
   await page.evaluate(() => document.fonts.ready);
-  await page.screenshot({ path: `docs/publication/screenshots/${testInfo.project.name}-comparison.png`, fullPage: true });
+  await page.screenshot({ path: `test-results/screenshots/${testInfo.project.name}-comparison.png`, fullPage: true });
   expect((await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze()).violations).toEqual([]);
 });
 

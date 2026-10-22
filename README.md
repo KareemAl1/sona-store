@@ -1,80 +1,40 @@
-# Sona — The Listening Room
+# Sona
 
-A personal frontend portfolio project: an original audio storefront built with React and TypeScript. Explore Arc headphones, Dot earbuds and the Room speaker, compare the collection, and build a bag across products and finishes. All products and prices are fictional; there are no payments, orders, accounts or backend services.
+A storefront for three audio products that only exist here: Arc headphones, Dot earbuds and the Room speaker. Pick a finish, compare the lineup and build a bag. The products and prices are made up, and there's no checkout.
 
-[Live demo](https://sona-store.vercel.app) · [GitHub repository](https://github.com/KareemAl1/sona-store)
+**[Live site](https://sona-store.vercel.app)**
 
-![Sona desktop homepage with a fig color field, warm chartreuse accents and original Arc product render](docs/publication/screenshots/color-motion-desktop.jpg)
+![Sona homepage](docs/screenshots/home.jpg)
 
-<p>
-  <img src="docs/publication/screenshots/color-motion-phone.jpg" width="260" alt="Sona color and motion update in a phone viewport" />
-</p>
+## What it does
 
-The current views show the October 6 color and motion update. Historical September 29 captures remain available: [full collection](docs/publication/screenshots/after-desktop-home-full.png) · [comparison](docs/publication/screenshots/after-desktop-comparison.png) · [phone product page](docs/publication/screenshots/after-phone-dot.png).
+- **Three products, three finishes each.** Switching between Pearl, Graphite and Fig swaps perfectly aligned renders, with a close-up of the materials.
+- **Compare up to three products** side by side in a table that stays keyboard-scrollable on small screens.
+- **A bag that remembers.** The same product and finish merge into one line, quantities run from 1 to 99, and the bag survives a reload. If storage is blocked, it still works in memory and says so.
+- **The URL holds the state.** Finish, comparison and whether the bag is open all live in the URL, so reload, Back and Forward always land where you expect.
+- **Accessible by default.** Native modal dialog, managed focus on route changes, live bag announcements and full reduced-motion support.
 
-## Working experience
+| Compare | Bag | Phone |
+| --- | --- | --- |
+| ![Comparison table](docs/screenshots/compare.jpg) | ![Bag with mixed items](docs/screenshots/bag.jpg) | ![Phone layout](docs/screenshots/phone.jpg) |
 
-- **Color and motion:** fig and plum color fields, warm chartreuse actions, large serif product indices, coordinated title/product/caption entrances, low-travel section reveals and brief hover feedback. The original product renders remain intact.
-- **Three products, three finishes:** shared product pages, Pearl/Graphite/Fig selection, aligned imagery and dedicated material close-ups.
-- **Comparison:** native checkboxes select zero to three products; a semantic comparison table remains keyboard-scrollable on narrow screens.
-- **Persistent bag:** variants merge by product and finish, with quantities from 1–99, removal, subtotal and empty states. Validated local storage restores the bag; blocked storage leaves a usable in-memory bag with an explanation.
-- **Navigation:** product finishes, comparison selection and bag visibility live in the URL. Back/Forward and reload preserve the relevant state; route changes manage focus and scroll.
-- **Responsive interactions:** keyboard-accessible controls, a native modal dialog, live cart feedback, reduced motion and image-failure handling. Shopping stays available while images decode or transitions run.
+## How it's built
 
-## Stack and decisions
+- **React 19, TypeScript, React Router 7 and Vite.** No animation or state-management libraries.
+- **Motion is hand-written** with CSS and the Web Animations API.
+- **The catalog is typed** and prices are stored in integer cents. A reducer owns the bag, validates what it loads from storage and never trusts saved data blindly.
+- **Product images are rendered from my own Three.js models** and baked to WebP, so shoppers don't download a 3D engine. See [assets/](assets/README.md).
 
-React 19, TypeScript, React Router 7 and Vite. CSS and the Web Animations API handle motion; there is no storefront animation or state-management dependency. Vitest covers cart rules, with Playwright and axe supporting browser verification.
-
-The typed catalog owns product definitions and integer-cent prices. A cart reducer/provider owns validated line items; transient image and animation state stays in the gallery. Original Three.js geometry is rendered offline into responsive WebPs, preserving finish alignment without shipping the 3D engine to shoppers. Instrument Serif and Manrope are self-hosted with their OFL notices.
-
-[Engineering and interview notes](docs/engineering.md) · [Arc asset sources](assets/arc/README.md) · [Dot and Room asset sources](assets/collection/README.md)
-
-## Run locally
-
-Requires Node.js 22.12+ and npm. From this folder:
+## Run it
 
 ```sh
 npm ci
-npm run preview:start
-npm run preview:status
+npm run dev        # http://127.0.0.1:4173
+npm test           # bag and storage unit tests
+npm run test:e2e   # Playwright browser suite with axe checks
+npm run build
 ```
 
-Open **http://127.0.0.1:4173/**. The launcher starts a detached, loopback-only Vite development preview, verifies the page and all three product assets, and records its process identity/log in ignored `.cache/`. `npm run preview:stop` stops only its verified process; another port owner is left alone. Keeping the origin fixed preserves the bag's browser storage. `npm run dev` is the foreground alternative.
+Fonts are Instrument Serif and Manrope, self-hosted with their licenses.
 
-```sh
-npm run build       # TypeScript check and production output in dist/
-npm test           # Cart model and persistence tests
-npm run test:e2e   # Existing desktop and phone browser suite
-```
-
-`npm run typecheck` runs the TypeScript check separately. For a foreground preview of built assets, stop the managed development preview, then run `npm run preview`. No environment variables or service credentials are required.
-
-The browser suite uses installed Microsoft Edge on Windows when available; elsewhere, install Playwright Chromium with `npx playwright install chromium`. It reuses a running local preview or starts one. Some tests refresh files in `docs/publication/screenshots/`, so preserve earlier visual evidence before rerunning the complete suite. There is no configured ESLint task.
-
-## Verification
-
-| Evidence | Actual result |
-| --- | --- |
-| October 6, 2026 color/motion build | TypeScript and Vite passed; 30 modules, JS 289.58 kB / 91.43 kB gzip; CSS 30.10 kB / 6.77 kB gzip |
-| October 6, 2026 color/motion local browser check | 1280px desktop and 390×844 phone layouts; rapid finish/Add, bag quantity/reload/removal, Escape and keyboard focus wrap passed |
-| October 6, 2026 first publication build | TypeScript and Vite passed; 29 modules, application JS 287.39 kB / 90.75 kB gzip |
-| October 6, 2026 unit rerun | 18 tests passed on Node 22.12.0 / npm 10.9.0 |
-| October 6, 2026 dependency audit | Zero reported vulnerabilities after compatible development-tool patches |
-| October 6, 2026 hosted browser smoke | Product/finish navigation, direct product and comparison routes, mixed bag, quantity/removal, reload restoration and Back/Forward passed; 390×844 phone viewport inspected |
-| October 1, 2026 production build | TypeScript and Vite passed; 29 modules, application JS 287.39 kB / 90.75 kB gzip |
-| October 1, 2026 unit rerun | 18 tests passed on Node 24.11.1 / npm 11.6.2 |
-| October 1, 2026 focused local browser check | In-app browser: homepage → Arc → Fig → bag, quantity 2 / $498 restored after reload, removal and empty state; no console errors |
-| September 29, 2026 full browser suite | 53 passed, 3 intentional skips; installed Edge, desktop and phone emulation |
-| September 29, 2026 visual and production review | Chrome screenshots at 1440, 768, 390 and 320px; built-asset deep routes, mixed-bag reload and reduced motion passed |
-
-The full browser suite was last run on September 29. The October 6 visual pass reran the build and all 18 unit tests, then used focused browser checks; its reduced-motion cancellation rules were statically reviewed, without a fresh browser preference-toggle test. Bundle size is a build measurement, not a loading-performance score. Phone emulation is not physical-device or Safari verification. Automated axe checks supplement keyboard testing and do not establish complete accessibility conformance. Network/device performance remains unmeasured.
-
-October 6 first-release hosted captures (before the color and motion update): [desktop homepage](docs/publication/screenshots/live-desktop.jpg) · [phone Room product page](docs/publication/screenshots/live-phone.jpg). On the live site, two Arc/Fig items restored after reload at $498; adding Dot produced a $647 mixed bag, and removing all items returned the empty state. This focused hosted check does not replace the historical full browser suite.
-
-[Detailed collection verification](docs/publication.md) · [Before/after gallery](docs/publication/compare.html) · [Historical first milestone](docs/verification.md)
-
-## Repository and publication
-
-Key source: `src/catalog.ts`, `src/App.tsx`, `src/Collection.tsx`, `src/ProductGallery.tsx` and `src/cart/`. Original editable geometry, render sources and provenance remain in `assets/arc/` and `assets/collection/`; browser regressions live in `tests/`.
-
-Published on October 6, 2026: [source on GitHub](https://github.com/KareemAl1/sona-store) and [live on Vercel](https://sona-store.vercel.app). Vercel is linked to the repository's `main` branch. `vercel.json` builds with `npm run build`, serves `dist/`, and provides the SPA fallback for direct product/comparison routes. No service credentials or environment variables are required. Product images are original, font license notices are retained, and no testimonials or audio-performance claims are presented.
+Made by [Kareem Alwan](https://kareemalwan.vercel.app).

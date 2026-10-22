@@ -129,12 +129,12 @@ test('reduced motion preserves the complete path and live preference changes', a
 });
 
 test('actual screenshots, assets, and automated accessibility review', async ({ page }, testInfo) => {
-  mkdirSync('docs/publication/screenshots', { recursive: true });
+  mkdirSync('test-results/screenshots', { recursive: true });
   const capture = async (name: string) => {
     await page.evaluate(() => document.fonts.ready);
     await page.locator('.product-gallery .finish-image[data-active=true] img').waitFor({ state: 'attached' });
     await page.waitForTimeout(550);
-    await page.screenshot({ path: `docs/publication/screenshots/${testInfo.project.name}-${name}.png`, fullPage: !await page.getByRole('dialog').isVisible() });
+    await page.screenshot({ path: `test-results/screenshots/${testInfo.project.name}-${name}.png`, fullPage: !await page.getByRole('dialog').isVisible() });
   };
   await page.goto('/');
   await capture('home');
