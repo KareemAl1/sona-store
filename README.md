@@ -36,5 +36,3 @@ npm run build
 ```
 
 Fonts are Instrument Serif and Manrope, self-hosted with their licenses.
-
-Made by [Kareem Alwan](https://kareemalwan.vercel.app).
