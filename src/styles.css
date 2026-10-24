@@ -399,3 +399,12 @@ h1,h2,h3{font-family:Instrument Serif,Georgia,serif;font-weight:400;letter-spaci
 @media(max-width:360px){.site-header nav{gap:8px 12px}.bag-toggle{padding-inline:9px}.collection-heading h2{font-size:3.1rem}.hero-shopping{gap:14px}}
 @media(hover:none){.button:hover{transform:none;box-shadow:none}.collection-image-link:hover img{transform:none}.finish-option:hover .finish-swatch{transform:none}}
 @media(prefers-reduced-motion:reduce){.reading-progress{display:none}.button:hover,.button:hover>span[aria-hidden],.collection-image-link:hover img,.collection-image-link:focus-visible img,.collection-action:hover span,.finish-option:hover .finish-swatch,.hero-footer>a:hover span{transform:none}}
+/* Add to bag confirmation: the label swaps to a drawn check, then settles back. */
+.add-button__label{display:inline-flex;overflow:hidden}
+.add-button__text{display:inline-flex;align-items:center;gap:8px}
+.add-button__text--animate{animation:add-label-in 260ms cubic-bezier(.22,1,.36,1)}
+.add-button__check{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:16;stroke-dashoffset:0;animation:add-check-draw 320ms 80ms cubic-bezier(.22,1,.36,1) both}
+.button.add-button--added,.button.add-button--added:hover{background:#c8d95a;transition:background-color 220ms ease}
+@keyframes add-label-in{from{transform:translateY(60%);opacity:0}to{transform:none;opacity:1}}
+@keyframes add-check-draw{from{stroke-dashoffset:16}to{stroke-dashoffset:0}}
+@media(prefers-reduced-motion:reduce){.add-button__text--animate,.add-button__check{animation:none}.button.add-button--added{transition:none}}

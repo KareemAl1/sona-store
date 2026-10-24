@@ -35,6 +35,16 @@ export function App() {
   const backdropPressed = useRef(false);
   const [confirmation, setConfirmation] = useState<{ productId: ProductId; finish: Finish; full: boolean } | null>(null);
   const [detailsOpen, setDetailsOpen] = useState(false);
+  // Bumped on every successful add so the button can replay its confirmation.
+  const [addedTick, setAddedTick] = useState(0);
+  const [justAdded, setJustAdded] = useState(false);
+
+  useEffect(() => {
+    if (addedTick === 0) return;
+    setJustAdded(true);
+    const timer = window.setTimeout(() => setJustAdded(false), 1600);
+    return () => window.clearTimeout(timer);
+  }, [addedTick]);
 
   useEffect(() => {
     const previous = window.history.scrollRestoration;
@@ -84,6 +94,7 @@ export function App() {
   }, [product, home, comparing, finish]);
 
   useEffect(() => { setConfirmation(current => current?.finish === finish && current.productId === product?.id ? current : null); }, [finish, product]);
+  useEffect(() => { setJustAdded(false); }, [finish, product]);
 
   // A tab-local key makes Close history-safe even after reload or on a directly opened URL.
   useEffect(() => {
@@ -141,6 +152,7 @@ export function App() {
     const full = cart.lines.some(line => line.productId === chosenProduct.id && line.finish === chosen && line.quantity === MAX_QUANTITY);
     cart.dispatch({ type: 'add', productId: chosenProduct.id, finish: chosen });
     setConfirmation({ productId: chosenProduct.id, finish: chosen, full });
+    if (!full) setAddedTick(tick => tick + 1);
   }
 
   function removeLine(productId: ProductId, target: Finish) {
@@ -196,7 +208,7 @@ export function App() {
               <p className="product-type">{item.type}</p>
               <p className="product-description">{item.description}</p>
               <fieldset className="finish-picker"><legend>Finish: <strong>{finishName(finish)}</strong></legend><div className="finish-options">{finishes.map(item => <label className="finish-option" key={item.id}><input type="radio" name="finish" value={item.id} checked={finish === item.id} onChange={() => chooseFinish(item.id)} /><span className={`finish-swatch ${item.id !== 'pearl' ? 'finish-swatch--dark' : ''}`} style={{ backgroundColor: item.color }} aria-hidden="true">{finish === item.id ? '✓' : ''}</span><span>{item.name}</span></label>)}</div></fieldset>
-              <div className="purchase-block"><button className="button button--wide" onClick={addToBag}>Add to bag <span>{money(item.price)}</span></button><div className="confirmation-space">{notice}</div><StorageNotice status={cart.status} /></div>
+              <div className="purchase-block"><button className={`button button--wide add-button${justAdded ? ' add-button--added' : ''}`} onClick={addToBag}><span className="add-button__label"><span key={`${addedTick}-${justAdded}`} className={`add-button__text${addedTick ? ' add-button__text--animate' : ''}`}>{justAdded ? <><svg className="add-button__check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5" /></svg>Added</> : 'Add to bag'}</span></span><span>{money(item.price)}</span></button><div className="confirmation-space">{notice}</div><StorageNotice status={cart.status} /></div>
               <Link className="compare-product" to={`/compare?items=${item.id}`}>Compare {item.name} with the collection ↗</Link>
             </>}
           </div>
