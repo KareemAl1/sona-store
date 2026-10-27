@@ -54,8 +54,9 @@ export function useEditorialMotion(pathname: string) {
         if (focused && focused !== document.body && (element.contains(focused) || focused.contains(element))) continue;
         const title = element.dataset.reveal === 'title';
         const animation = element.animate([
-          { opacity: title ? .72 : .65, transform: `translateY(${mobile ? 10 : title ? 22 : 18}px)` },
-          { opacity: 1, transform: 'none' },
+          // A light blur that clears as it rises, so content comes into focus.
+          { opacity: title ? .72 : .65, transform: `translateY(${mobile ? 10 : title ? 22 : 18}px)`, filter: `blur(${mobile ? 4 : 8}px)` },
+          { opacity: 1, transform: 'none', filter: 'blur(0)' },
         ], { duration: title ? (mobile ? 620 : 820) : (mobile ? 440 : 660), easing: 'cubic-bezier(.22,1,.36,1)' });
         animation.id = 'sona-editorial-reveal';
         active.set(element, animation);

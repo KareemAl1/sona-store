@@ -409,3 +409,23 @@ h1,h2,h3{font-family:Instrument Serif,Georgia,serif;font-weight:400;letter-spaci
 @keyframes add-label-in{from{transform:translateY(60%);opacity:0}to{transform:none;opacity:1}}
 @keyframes add-check-draw{from{stroke-dashoffset:16}to{stroke-dashoffset:0}}
 @media(prefers-reduced-motion:reduce){.add-button__text--animate,.add-button__check{animation:none}.button.add-button--added{transition:none}}
+/* Lively details: finishes that turn on their own, a soft chartreuse glow, and a live studio clock. */
+.collection-image--cycle>img{position:absolute;inset:0;opacity:0;transform:scale(1.03);transition:opacity 900ms cubic-bezier(.16,1,.3,1),transform 3800ms cubic-bezier(.16,1,.3,1)}
+.collection-image--cycle>img[data-active=true]{opacity:1;transform:none}
+.collection-image-link:hover .collection-image--cycle>img[data-active=true]{transform:scale(1.025)}
+.finish-chip{position:absolute;left:18px;bottom:18px;display:inline-flex;align-items:center;gap:8px;padding:6px 12px 6px 7px;border-radius:99px;background:#1d121bcc;color:#fff6fb;font-size:.8125rem;line-height:1.4;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:inset 0 0 0 1px #ffffff1f}
+.finish-chip i{width:14px;height:14px;border-radius:50%;box-shadow:inset 0 0 0 1px #ffffff40;transition:background-color 600ms ease}
+.finish-chip span{display:inline-block;animation:chip-in 520ms cubic-bezier(.16,1,.3,1)}
+@keyframes chip-in{from{opacity:0;transform:translateY(6px);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
+.button:hover{box-shadow:0 0 0 4px #e0ee8a2e,0 10px 32px #c8d95a59}
+.hero:not(.hero--product) .button{box-shadow:0 0 0 4px #e0ee8a1a,0 8px 30px #e0ee8a33}
+.hero:not(.hero--product) .button:hover{box-shadow:0 0 0 6px #e0ee8a26,0 12px 44px #e0ee8a59}
+.studio-clock{display:inline-flex;align-items:center;gap:10px}
+.studio-clock time{color:var(--ink);font-variant-numeric:tabular-nums}
+.studio-clock__dot{position:relative;width:8px;height:8px;border-radius:50%;background:#9bb52a;box-shadow:0 0 10px #c8d95a}
+.studio-clock__dot::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:1px solid #9bb52a;animation:clock-ping 2.4s cubic-bezier(.16,1,.3,1) infinite}
+@keyframes clock-ping{from{transform:scale(.6);opacity:1}to{transform:scale(2.2);opacity:0}}
+.site-footer{flex-wrap:wrap}
+@media(max-width:700px){.site-footer .studio-clock{order:3;width:100%}.finish-chip{left:14px;bottom:14px}}
+@media(hover:none){.button:hover{box-shadow:none}}
+@media(prefers-reduced-motion:reduce){.button:hover,.hero:not(.hero--product) .button:hover{box-shadow:none}}

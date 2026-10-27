@@ -219,7 +219,7 @@ export function App() {
         {product && <section className="design-details"><button aria-expanded={detailsOpen} aria-controls="design-details-content" onClick={() => setDetailsOpen(!detailsOpen)}><span>Design details</span><span aria-hidden="true">{detailsOpen ? '−' : '+'}</span></button><div id="design-details-content" hidden={!detailsOpen}><p>{item.design} Choose Pearl, Graphite, or Fig; each finish shares the same original form.</p><p>This is a fictional design study. The price is illustrative; no audio performance, battery life, or manufacturing claims are made.</p></div></section>}
       </> : comparing ? <ComparisonPage headingRef={heading} /> : <section className="not-found"><p className="eyebrow">Page not found</p><h1 ref={heading} tabIndex={-1}>A little off track.</h1><p>The collection is a good place to start.</p><Link className="button" to="/#collection">Explore the collection <span aria-hidden="true">↗</span></Link></section>}
     </main>
-    <footer className="site-footer"><Link className="wordmark" to="/" aria-label="Sona home">sona</Link><p>Fictional products. Portfolio concept. No payments.</p></footer>
+    <footer className="site-footer"><Link className="wordmark" to="/" aria-label="Sona home">sona</Link><StudioClock /><p>Fictional products. Portfolio concept. No payments.</p></footer>
 
     <dialog className="cart-dialog" ref={dialog} aria-labelledby="cart-heading" onKeyDown={containDialogFocus} onCancel={event => { event.preventDefault(); closeBag(); }} onPointerDown={event => { backdropPressed.current = event.button === 0 && isBackdrop(event); }} onPointerCancel={() => { backdropPressed.current = false; }} onClick={event => { const dismiss = backdropPressed.current && isBackdrop(event); backdropPressed.current = false; if (dismiss) closeBag(); }}>
       <div className="cart-header"><h2 id="cart-heading">Your bag</h2><button className="text-button cart-close" ref={closeButton} onClick={closeBag} aria-label="Close bag">Close <span aria-hidden="true">×</span></button></div>
@@ -233,6 +233,16 @@ export function App() {
     </dialog>
     <p className="sr-only" role="status" aria-live={bagOpen ? 'off' : 'polite'} aria-atomic="true">{cart.announcement}</p>
   </>;
+}
+
+function StudioClock() {
+  const read = () => new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', timeZone: 'America/Detroit' });
+  const [time, setTime] = useState(read);
+  useEffect(() => {
+    const id = window.setInterval(() => setTime(read()), 20_000);
+    return () => window.clearInterval(id);
+  }, []);
+  return <p className="studio-clock"><span className="studio-clock__dot" aria-hidden="true" />Listening room open. <time>{time}</time></p>;
 }
 
 function StorageNotice({ status }: { status: 'available' | 'unavailable' | 'recovered' }) {

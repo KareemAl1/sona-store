@@ -1,14 +1,41 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { RefObject } from 'react';
 import { Link, useSearchParams } from 'react-router';
-import { comparisonIds, money, productIds, productImage, products, productUrl } from './catalog';
+import { comparisonIds, finishes, money, productIds, productImage, products, productUrl } from './catalog';
+import { useReducedMotion } from './useReducedMotion';
 import type { ProductId } from './catalog';
 
-function CollectionImage({ id }: { id: ProductId }) {
+function CollectionImage({ id, cycle = false, period = 3200 }: { id: ProductId; cycle?: boolean; period?: number }) {
   const [failed, setFailed] = useState(false);
-  return <div className="collection-image">{failed
+  const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const box = useRef<HTMLDivElement>(null);
+  const reduced = useReducedMotion();
+  const shown = cycle && !reduced ? finishes : finishes.slice(0, 1);
+
+  // On the homepage each piece slowly turns through its finishes while it is on screen.
+  useEffect(() => {
+    const element = box.current;
+    if (!cycle || reduced || paused || failed || !element || !('IntersectionObserver' in window)) return;
+    let timer = 0;
+    const observer = new IntersectionObserver(([entry]) => {
+      window.clearInterval(timer);
+      if (entry.isIntersecting) timer = window.setInterval(() => setIndex(i => (i + 1) % finishes.length), period);
+    }, { threshold: .4 });
+    observer.observe(element);
+    return () => { observer.disconnect(); window.clearInterval(timer); };
+  }, [cycle, period, reduced, paused, failed]);
+
+  const active = shown[Math.min(index, shown.length - 1)];
+  return <div className={`collection-image${shown.length > 1 ? ' collection-image--cycle' : ''}`} ref={box} onPointerEnter={() => setPaused(true)} onPointerLeave={() => setPaused(false)}>{failed
     ? <p role="img" aria-label={`${products[id].name} preview unavailable`}>Preview unavailable.<br />You can still explore {products[id].name}.</p>
-    : <img src={productImage(id, 'pearl')} srcSet={`${productImage(id, 'pearl', 'small')} 550w, ${productImage(id, 'pearl')} 1100w`} sizes="(max-width: 700px) 100vw, 50vw" width="1100" height="1100" loading="lazy" alt={`Sona ${products[id].name} in Pearl, in the plum studio`} onError={() => setFailed(true)} />}</div>;
+    : <>
+      {shown.map(finish => {
+        const on = finish.id === active.id;
+        return <img key={finish.id} data-active={on} src={productImage(id, finish.id)} srcSet={`${productImage(id, finish.id, 'small')} 550w, ${productImage(id, finish.id)} 1100w`} sizes="(max-width: 700px) 100vw, 50vw" width="1100" height="1100" loading="lazy" alt={on ? `Sona ${products[id].name} in ${finish.name}, in the plum studio` : ''} aria-hidden={on ? undefined : true} onError={() => setFailed(true)} />;
+      })}
+      {shown.length > 1 && <span className="finish-chip" aria-hidden="true"><i style={{ background: active.color }} /><span key={active.id}>{active.name}</span></span>}
+    </>}</div>;
 }
 
 export function Collection() {
@@ -17,7 +44,7 @@ export function Collection() {
     <div className="collection-spread">{(['dot', 'room'] as const).map(id => {
       const item = products[id];
       return <article key={id} className={`collection-piece collection-piece--${id}`}>
-        <Link data-reveal="image" className="collection-image-link" to={productUrl(id)} aria-label={`Explore ${item.name}`}><CollectionImage id={id} /></Link>
+        <Link data-reveal="image" className="collection-image-link" to={productUrl(id)} aria-label={`Explore ${item.name}`}><CollectionImage id={id} cycle period={id === 'dot' ? 3200 : 4300} /></Link>
         <div className="collection-caption"><div className="collection-caption__index"><span aria-hidden="true">{item.number}</span><p className="eyebrow">{item.type}</p></div><div className="collection-name"><h3><Link to={productUrl(id)}>{item.name}</Link></h3><p>{money(item.price)}<span>Concept price</span></p></div><p className="collection-description">{item.introduction}</p><Link className="collection-action" to={productUrl(id)}>Discover {item.name} <span aria-hidden="true">↗</span></Link></div>
       </article>;
     })}</div>
