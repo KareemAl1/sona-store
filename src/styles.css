@@ -435,3 +435,9 @@ h1,h2,h3{font-family:Instrument Serif,Georgia,serif;font-weight:400;letter-spaci
 @keyframes track-in{from{opacity:0;transform:translateY(5px);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
 @media(max-width:700px){.site-footer .now-playing{order:3;width:100%;flex-wrap:wrap;gap:6px 10px}.now-playing__label{display:none}}
 @media(prefers-reduced-motion:reduce){.now-playing__bars i{animation:none;transform:scaleY(.6)}.now-playing__bars i:nth-child(even){transform:scaleY(.35)}}
+/* Finish changes settle instead of snapping: the new finish fades in while the
+   product eases from a slightly larger, softer frame into place. */
+.finish-image{transition:opacity 420ms cubic-bezier(.16,1,.3,1)}
+.finish-image img{transform:scale(1.035);filter:blur(3px);transition:transform 900ms cubic-bezier(.16,1,.3,1),filter 520ms cubic-bezier(.16,1,.3,1)}
+.finish-image[data-active=true] img{transform:none;filter:none}
+@media(max-width:700px){.finish-image{transition-duration:320ms}}
