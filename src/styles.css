@@ -448,4 +448,4 @@ h1,h2,h3{font-family:Instrument Serif,Georgia,serif;font-weight:400;letter-spaci
 @media(hover:hover){.comparison-table tbody tr:hover>*{background:#eddde6}.comparison-table tbody tr:hover>th{background:#e6d2de}.comparison-table thead th:hover .collection-image img{transform:translateY(-4px) scale(1.02)}}
 @media(prefers-reduced-motion:reduce){.comparison-table thead th:hover .collection-image img{transform:none}}
 
-.bag-flight{position:fixed;left:0;top:0;width:14px;height:14px;border-radius:50%;pointer-events:none;z-index:60;box-shadow:0 0 0 2px rgba(255,255,255,.55),0 6px 16px rgba(0,0,0,.25)}
+.bag-flight{position:fixed;left:0;top:0;width:18px;height:18px;border-radius:50%;pointer-events:none;z-index:60;box-shadow:0 0 0 2px rgba(255,255,255,.55),0 6px 16px rgba(0,0,0,.25)}
