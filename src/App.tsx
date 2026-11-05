@@ -13,6 +13,34 @@ import { useEditorialMotion } from './useEditorialMotion';
 const scrollPositions = new Map<string, number>();
 const overlayKeys = new Set<string>();
 
+// A small dot in the chosen finish arcs from the button into the bag, so the
+// count changing has a cause you can see. Skipped with reduced motion.
+function flyToBag(from: Element | null, color: string) {
+  const bag = document.querySelector('.bag-toggle');
+  if (!from || !bag || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const a = from.getBoundingClientRect(), b = bag.getBoundingClientRect();
+  if (!b.width) return;
+  const x0 = a.left + a.width / 2, y0 = a.top + a.height / 2;
+  const x1 = b.left + b.width / 2, y1 = b.top + b.height / 2;
+  const cx = (x0 + x1) / 2, cy = Math.min(y0, y1) - 140;
+  const dot = document.createElement('span');
+  dot.className = 'bag-flight';
+  dot.style.background = color;
+  document.body.appendChild(dot);
+  const frames: Keyframe[] = [];
+  for (let i = 0; i <= 12; i++) {
+    const t = i / 12, u = 1 - t;
+    const x = u * u * x0 + 2 * u * t * cx + t * t * x1;
+    const y = u * u * y0 + 2 * u * t * cy + t * t * y1;
+    frames.push({ transform: `translate(${x - 7}px, ${y - 7}px) scale(${1 - t * 0.45})`, opacity: t > 0.92 ? 0 : 1 });
+  }
+  const flight = dot.animate(frames, { duration: 640, easing: 'cubic-bezier(.45,0,.2,1)' });
+  flight.onfinish = () => {
+    dot.remove();
+    bag.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.08)' }, { transform: 'scale(1)' }], { duration: 320, easing: 'cubic-bezier(.22,1,.36,1)' });
+  };
+}
+
 export function App() {
   useBagInspection();
   const location = useLocation();
@@ -153,7 +181,10 @@ export function App() {
     const full = cart.lines.some(line => line.productId === chosenProduct.id && line.finish === chosen && line.quantity === MAX_QUANTITY);
     cart.dispatch({ type: 'add', productId: chosenProduct.id, finish: chosen });
     setConfirmation({ productId: chosenProduct.id, finish: chosen, full });
-    if (!full) setAddedTick(tick => tick + 1);
+    if (!full) {
+      setAddedTick(tick => tick + 1);
+      flyToBag(document.activeElement?.closest('button') ?? null, finishes.find(f => f.id === chosen)?.color ?? '#dcdad2');
+    }
   }
 
   function removeLine(productId: ProductId, target: Finish) {
